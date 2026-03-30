@@ -1,0 +1,145 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@theme {
+  --font-sans: "Outfit", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-theme-bg: var(--bg-primary);
+  --color-theme-text: var(--text-primary);
+  --color-theme-muted: var(--text-secondary);
+}
+
+:root {
+  --bg-primary: #09090b;
+  --bg-secondary: #18181b;
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body.light {
+  --bg-primary: #fafafa;
+  --bg-secondary: #f4f4f5;
+  --text-primary: #09090b;
+  --text-secondary: #52525b;
+  --glass-bg: rgba(0, 0, 0, 0.05);
+  --glass-border: rgba(0, 0, 0, 0.1);
+}
+
+@layer base {
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    @apply antialiased selection:bg-blue-500/30 selection:text-blue-200 transition-colors duration-500;
+  }
+}
+
+.glass {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: none;
+  @apply transition-colors duration-500;
+}
+
+/* Override utility classes in light mode */
+.light .text-zinc-400 { color: var(--text-secondary); }
+.light .text-zinc-500 { color: var(--text-secondary); opacity: 0.8; }
+.light .text-zinc-100 { color: var(--text-primary); }
+.light .bg-zinc-950 { background-color: var(--bg-primary); }
+.light .bg-zinc-900 { background-color: var(--bg-secondary); }
+
+/* Gradient overrides */
+.light .from-zinc-950 { --tw-gradient-from: var(--bg-primary) var(--tw-gradient-from-position); }
+.light .via-zinc-950\/90 { --tw-gradient-via: rgba(250, 250, 250, 0.9) var(--tw-gradient-via-position); }
+.light .via-zinc-950\/60 { --tw-gradient-via: rgba(250, 250, 250, 0.6) var(--tw-gradient-via-position); }
+.light .to-zinc-950 { --tw-gradient-to: var(--bg-primary) var(--tw-gradient-to-position); }
+
+/* Specific component overrides */
+.light .bg-white\/5 { background-color: rgba(0, 0, 0, 0.05); }
+.light .border-white\/5 { border-color: rgba(0, 0, 0, 0.05); }
+.light .border-white\/10 { border-color: rgba(0, 0, 0, 0.1); }
+.light .bg-zinc-950\/95 { background-color: rgba(250, 250, 250, 0.95); }
+.light .bg-zinc-950\/90 { background-color: rgba(250, 250, 250, 0.9); }
+
+.light .text-zinc-950 { color: #09090b; } /* Keep dark text on light backgrounds if needed, but usually this is for buttons */
+.light button.bg-blue-500 .text-zinc-950 { color: #ffffff; } /* White text on blue buttons in light mode */
+
+.light .glass.py-3 {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+}
+
+.light .hero-overlay {
+  background: #ffffff !important;
+}
+
+.light .nav-links {
+  color: #000000 !important;
+}
+
+/* Contact form text color overrides for light mode */
+.light #contact .text-zinc-400,
+.light #contact .text-zinc-500,
+.light #contact label,
+.light #contact p,
+.light #contact h2,
+.light #contact .font-bold {
+  color: #ffffff !important;
+}
+
+.light #contact input,
+.light #contact textarea,
+.light #contact select {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.light #contact input::placeholder,
+.light #contact textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.light #contact .bg-blue-500\/10 {
+  background-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.light .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.light .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
