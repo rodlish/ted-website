@@ -56,10 +56,10 @@ export const MentionsLegales = () => (
         <Shield className="w-5 h-5 text-blue-400" /> 2. Propriété intellectuelle et contrefaçons
       </h2>
       <p>
-        Ted-Company Group est propriétaire des droits de propriété intellectuelle et détient les droits d’usage sur tous les éléments accessibles sur le site internet, notamment les textes, images, graphismes, logos, vidéos, architecture, icônes et sons.
+        Nous sommes propriétaires des droits de propriété intellectuelle et détenons les droits d’usage sur tous les éléments accessibles sur le site internet, notamment les textes, images, graphismes, logos, vidéos, architecture, icônes et sons.
       </p>
       <p>
-        Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de Ted-Company Group.
+        Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf notre autorisation écrite préalable.
       </p>
     </section>
 
@@ -68,10 +68,10 @@ export const MentionsLegales = () => (
         <Scale className="w-5 h-5 text-blue-400" /> 3. Limitations de responsabilité
       </h2>
       <p>
-        Ted-Company Group ne pourra être tenu pour responsable des dommages directs et indirects causés au matériel de l’utilisateur, lors de l’accès au site ted-companygroup.com.
+        Nous ne pourrons être tenus pour responsables des dommages directs et indirects causés au matériel de l’utilisateur, lors de l’accès au site ted-companygroup.com.
       </p>
       <p>
-        Ted-Company Group décline toute responsabilité quant à l’utilisation qui pourrait être faite des informations et contenus présents sur ted-companygroup.com.
+        Nous déclinons toute responsabilité quant à l’utilisation qui pourrait être faite des informations et contenus présents sur ted-companygroup.com.
       </p>
     </section>
   </LegalLayout>
@@ -96,7 +96,7 @@ export const Confidentialite = () => (
         Pour les Données Personnelles collectées dans le cadre de la navigation de l’Utilisateur sur le Site, le responsable du traitement des Données Personnelles est : Ted-Company Group.
       </p>
       <p>
-        En tant que responsable du traitement des données qu’il collecte, Ted-Company Group s’engage à respecter le cadre des dispositions légales en vigueur.
+        En tant que responsable du traitement des données que nous collectons, nous nous engageons à respecter le cadre des dispositions légales en vigueur.
       </p>
     </section>
 
@@ -104,7 +104,7 @@ export const Confidentialite = () => (
       <h2 className="text-2xl font-bold text-white flex items-center gap-2">
         <Lock className="w-5 h-5 text-blue-400" /> 3. Finalité des données collectées
       </h2>
-      <p>Ted-Company Group est susceptible de traiter tout ou partie des données :</p>
+      <p>Nous sommes susceptibles de traiter tout ou partie des données :</p>
       <ul className="list-disc pl-6 space-y-2">
         <li>Pour permettre la navigation sur le Site et la gestion et la traçabilité des prestations et services commandés par l’utilisateur.</li>
         <li>Pour prévenir et lutter contre la fraude informatique (spamming, hacking…).</li>
@@ -129,7 +129,7 @@ export const Confidentialite = () => (
         <li>Droit d’opposition au traitement des données des Utilisateurs (article 21 RGPD).</li>
       </ul>
       <p>
-        Si l’Utilisateur souhaite savoir comment Ted-Company Group utilise ses Données Personnelles, demander à les rectifier ou s’oppose à leur traitement, l’Utilisateur peut contacter Ted-Company Group par écrit à l’adresse suivante : contact@ted-companygroup.com.
+        Si l’Utilisateur souhaite savoir comment nous utilisons ses Données Personnelles, demander à les rectifier ou s’oppose à leur traitement, l’Utilisateur peut nous contacter par écrit à l’adresse suivante : contact@ted-companygroup.com.
       </p>
     </section>
   </LegalLayout>
@@ -151,7 +151,7 @@ export const Cookies = () => (
         <Eye className="w-5 h-5 text-blue-400" /> 2. Pourquoi utilisons-nous des cookies ?
       </h2>
       <p>
-        Ted-Company Group est susceptible de traiter les informations de l’Utilisateur concernant sa visite du Site, telles que les pages consultées, les recherches effectuées. Ces informations permettent à Ted-Company Group d’améliorer le contenu du Site, de la navigation de l’Utilisateur.
+        Nous sommes susceptibles de traiter les informations de l’Utilisateur concernant sa visite du Site, telles que les pages consultées, les recherches effectuées. Ces informations nous permettent d’améliorer le contenu du Site et la navigation de l’Utilisateur.
       </p>
     </section>
 
@@ -160,10 +160,22 @@ export const Cookies = () => (
         <Scale className="w-5 h-5 text-blue-400" /> 3. Comment gérer vos cookies ?
       </h2>
       <p>
-        L’Utilisateur peut configurer son navigateur pour qu’il lui permette de décider s’il souhaite ou non les accepter de manière à ce que des Cookies soient enregistrés dans le terminal ou, au contraire, qu’ils soient rejetés, soit systématiquement, soit selon leur émetteur.
+        Conformément à notre volonté d'optimisation continue, <strong>l'utilisation de ce site implique l'acceptation automatique des cookies</strong> nécessaires à l'analyse du trafic et à l'amélioration de nos services.
+      </p>
+      <p>
+        L’Utilisateur peut néanmoins configurer son navigateur pour qu’il lui permette de décider s’il souhaite ou non les accepter de manière à ce que des Cookies soient enregistrés dans le terminal ou, au contraire, qu’ils soient rejetés, soit systématiquement, soit selon leur émetteur.
       </p>
       <p>
         Si l’Utilisateur refuse l’enregistrement de Cookies dans son terminal ou son navigateur, ou si l’Utilisateur supprime ceux qui y sont enregistrés, l’Utilisateur est informé que sa navigation et son expérience sur le Site peuvent être limitées.
+      </p>
+    </section>
+
+    <section className="space-y-4">
+      <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+        <Info className="w-5 h-5 text-blue-400" /> 4. Information sur le consentement
+      </h2>
+      <p>
+        En poursuivant votre navigation sur <strong>ted-companygroup.com</strong>, vous reconnaissez avoir été informé que des cookies sont utilisés pour collecter des informations statistiques anonymes sur votre visite. Ces données nous sont précieuses pour adapter nos offres et nos contenus à vos besoins réels.
       </p>
     </section>
   </LegalLayout>

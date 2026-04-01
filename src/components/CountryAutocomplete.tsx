@@ -86,7 +86,7 @@ const CountryAutocomplete: React.FC<CountryAutocompleteProps> = ({
           placeholder={placeholder}
           required={required}
           autoComplete="off"
-          className="w-full glass bg-white/5 border-white/10 rounded-xl px-4 py-3 pr-10 focus:outline-none focus:border-blue-500/50 transition-colors"
+          className="w-full bg-white dark:bg-zinc-900 border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 pr-10 focus:outline-none focus:border-blue-500/50 transition-colors text-black dark:text-white"
         />
         <div className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none">
           {isOpen ? <Search className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -99,14 +99,14 @@ const CountryAutocomplete: React.FC<CountryAutocompleteProps> = ({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute z-50 w-full mt-2 glass bg-zinc-900/95 border border-white/10 rounded-xl max-h-60 overflow-y-auto custom-scrollbar shadow-2xl"
+            className="absolute z-50 w-full mt-2 bg-white dark:bg-zinc-900 border border-black/10 dark:border-white/10 rounded-xl max-h-60 overflow-y-auto custom-scrollbar shadow-2xl"
           >
             {filteredCountries.map((country, index) => (
               <button
                 key={index}
                 type="button"
                 onClick={() => handleSelect(country)}
-                className="w-full text-left px-4 py-3 hover:bg-blue-500/20 hover:text-blue-400 transition-colors text-sm border-b border-white/5 last:border-0"
+                className="w-full text-left px-4 py-3 hover:bg-blue-500/20 text-black dark:text-zinc-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm border-b border-black/5 dark:border-white/5 last:border-0"
               >
                 {country}
               </button>

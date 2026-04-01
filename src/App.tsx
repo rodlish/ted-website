@@ -5,7 +5,7 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'motion/react';
-import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate, useLocation, useSearchParams, useNavigationType } from 'react-router-dom';
 import { 
   Globe, 
   PhoneCall, 
@@ -19,6 +19,7 @@ import {
   X, 
   CheckCircle2,
   ChevronRight,
+  ChevronDown,
   Mail,
   MapPin,
   Phone,
@@ -76,6 +77,62 @@ import {
 } from 'lucide-react';
 import CountryAutocomplete from './components/CountryAutocomplete';
 import { MentionsLegales, Confidentialite, Cookies } from './components/LegalPages';
+
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
+
+const ScrollToTop = () => {
+  const { pathname, hash } = useLocation();
+  const navType = useNavigationType();
+
+  useEffect(() => {
+    // Only scroll to top on new navigations (PUSH) and if there's no hash
+    if (navType !== 'POP' && !hash) {
+      window.scrollTo(0, 0);
+    }
+    
+    // If there is a hash, scroll to the element
+    if (hash) {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [pathname, hash, navType]);
+
+  return null;
+};
+
+const StructuredData = () => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Ted-Company Group",
+    "url": "https://www.ted-companygroup.com/",
+    "logo": "https://www.ted-companygroup.com/assets/img/logos/ted-company.png",
+    "description": "Expert en externalisation (BPO), solutions digitales, relation client et recrutement international inclusif en Afrique.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "Madagascar"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/ted-companygroup/",
+      "https://www.facebook.com/tedcompanygroup/"
+    ]
+  };
+
+  return (
+    <script type="application/ld+json">
+      {JSON.stringify(schema)}
+    </script>
+  );
+};
 
 const categories = [
   { id: 'digital', title: 'Solutions Digitales', icon: Laptop },
@@ -182,6 +239,7 @@ const Navbar = ({ theme, toggleTheme }: { theme: string, toggleTheme: () => void
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const location = useLocation();
+  const navigate = useNavigate();
   const isHome = location.pathname === '/';
 
   useEffect(() => {
@@ -189,6 +247,16 @@ const Navbar = ({ theme, toggleTheme }: { theme: string, toggleTheme: () => void
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleLogoClick = () => {
+    if (isHome) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
+    }
+  };
+
+  const navItems = ['Services', 'À propos', 'Processus', 'Contact'];
 
   return (
     <>
@@ -198,7 +266,7 @@ const Navbar = ({ theme, toggleTheme }: { theme: string, toggleTheme: () => void
       />
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass py-3 shadow-2xl shadow-blue-500/10' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div onClick={() => window.location.href = '/'} className="cursor-pointer">
+          <div onClick={handleLogoClick} className="cursor-pointer">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -206,7 +274,7 @@ const Navbar = ({ theme, toggleTheme }: { theme: string, toggleTheme: () => void
               className="flex items-center gap-3"
             >
               <img 
-                src="https://www.ted-companygroup.com/assets/img/logos/ted-company-with-letter.png" 
+                src="https://www.ted-companygroup.com/assets%20ancien/img/logos/ted-company-with-letter.png" 
                 alt="Ted-Company Group Logo" 
                 className="h-10 md:h-12 w-auto"
                 referrerPolicy="no-referrer"
@@ -218,23 +286,36 @@ const Navbar = ({ theme, toggleTheme }: { theme: string, toggleTheme: () => void
           </div>
 
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-400 nav-links">
-            {(isHome ? ['Services', 'À propos', 'Processus', 'Contact'] : []).map((item, i) => (
-              <motion.a 
-                key={item} 
-                href={`#${item.toLowerCase().replace(' ', '-')}`} 
+            {navItems.map((item, i) => (
+              <motion.div 
+                key={item}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
-                className="hover:text-blue-400 transition-colors relative group"
               >
-                {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full" />
-              </motion.a>
+                {isHome ? (
+                  <a 
+                    href={`#${item.toLowerCase().replace(' ', '-')}`} 
+                    className="hover:text-blue-400 transition-colors relative group"
+                  >
+                    {item}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full" />
+                  </a>
+                ) : (
+                  <Link 
+                    to={`/#${item.toLowerCase().replace(' ', '-')}`} 
+                    className="hover:text-blue-400 transition-colors relative group"
+                  >
+                    {item}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full" />
+                  </Link>
+                )}
+              </motion.div>
             ))}
             
             {!isHome && (
               <Link to="/" className="hover:text-blue-400 transition-colors flex items-center gap-2">
-                <ArrowLeft className="w-4 h-4" /> Retour à l'accueil
+                <ArrowLeft className="w-4 h-4" /> Accueil
               </Link>
             )}
             
@@ -281,10 +362,26 @@ const Navbar = ({ theme, toggleTheme }: { theme: string, toggleTheme: () => void
               <div className="flex justify-end">
                 <button onClick={() => setIsMobileMenuOpen(false)}><X className="w-8 h-8" /></button>
               </div>
-              {['Services', 'À propos', 'Processus', 'Contact'].map((item) => (
-                <a key={item} href={`#${item.toLowerCase().replace(' ', '-')}`} className="text-4xl font-bold hover:text-blue-400" onClick={() => setIsMobileMenuOpen(false)}>
-                  {item}
-                </a>
+              {navItems.map((item) => (
+                isHome ? (
+                  <a 
+                    key={item} 
+                    href={`#${item.toLowerCase().replace(' ', '-')}`} 
+                    className="text-4xl font-bold hover:text-blue-400" 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item}
+                  </a>
+                ) : (
+                  <Link 
+                    key={item} 
+                    to={`/#${item.toLowerCase().replace(' ', '-')}`} 
+                    className="text-4xl font-bold hover:text-blue-400" 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item}
+                  </Link>
+                )
               ))}
               <Link 
                 to="/demarrer-un-projet"
@@ -539,6 +636,7 @@ const Services = () => {
           <motion.img
             key={activeImage}
             src={bgImages[activeImage]}
+            alt="Ted-Company Group Service Background"
             initial={{ opacity: 0, scale: 1.2, filter: 'blur(10px)' }}
             animate={{ opacity: 0.2, scale: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, scale: 1.1, filter: 'blur(10px)' }}
@@ -849,11 +947,11 @@ const Contact = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-zinc-400">Nom Complet</label>
-                    <input name="name" type="text" required className="w-full bg-white/5 border border-white/10 backdrop-blur-none rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500/50 transition-colors" placeholder="Jean Dupont" />
+                    <input name="name" type="text" required className="w-full bg-white dark:bg-zinc-900 border border-black/10 dark:border-white/10 backdrop-blur-none rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500/50 transition-colors text-black dark:text-white" placeholder="Jean Dupont" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-zinc-400">Email</label>
-                    <input name="email" type="email" required className="w-full bg-white/5 border border-white/10 backdrop-blur-none rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500/50 transition-colors" placeholder="jean@entreprise.com" />
+                    <input name="email" type="email" required className="w-full bg-white dark:bg-zinc-900 border border-black/10 dark:border-white/10 backdrop-blur-none rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500/50 transition-colors text-black dark:text-white" placeholder="jean@entreprise.com" />
                   </div>
                 </div>
                 <div className="grid md:grid-cols-2 gap-6">
@@ -863,22 +961,27 @@ const Contact = () => {
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-zinc-400">Service</label>
-                    <select 
-                      name="service" 
-                      value={selectedService}
-                      onChange={(e) => setSelectedService(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 backdrop-blur-none rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500/50 transition-colors appearance-none"
-                    >
-                      {services.map(s => (
-                        <option key={s.id} value={s.title} className="bg-zinc-900">{s.title}</option>
-                      ))}
-                      <option className="bg-zinc-900">Autre</option>
-                    </select>
+                    <div className="relative">
+                      <select 
+                        name="service" 
+                        value={selectedService}
+                        onChange={(e) => setSelectedService(e.target.value)}
+                        className="w-full bg-white dark:bg-zinc-900 border border-black/10 dark:border-white/10 backdrop-blur-none rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500/50 transition-colors appearance-none text-black dark:text-white"
+                      >
+                        {services.map(s => (
+                          <option key={s.id} value={s.title} className="bg-white dark:bg-zinc-900 text-black dark:text-white">{s.title}</option>
+                        ))}
+                        <option className="bg-white dark:bg-zinc-900 text-black dark:text-white">Autre</option>
+                      </select>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none">
+                        <ChevronDown className="w-4 h-4" />
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-zinc-400">Message</label>
-                  <textarea name="message" rows={4} required className="w-full bg-white/5 border border-white/10 backdrop-blur-none rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500/50 transition-colors" placeholder="Décrivez votre projet..." />
+                  <textarea name="message" rows={4} required className="w-full bg-white dark:bg-zinc-900 border border-black/10 dark:border-white/10 backdrop-blur-none rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500/50 transition-colors text-black dark:text-white" placeholder="Décrivez votre projet..." />
                 </div>
                 <button 
                   type="submit" 
@@ -905,7 +1008,7 @@ const Footer = () => {
           className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
         >
           <img 
-            src="https://www.ted-companygroup.com/assets/img/logos/ted-company-with-letter.png" 
+            src="https://www.ted-companygroup.com/assets%20ancien/img/logos/ted-company-with-letter.png" 
             alt="Ted-Company Group Logo" 
             className="h-10 w-auto"
             referrerPolicy="no-referrer"
@@ -2156,6 +2259,27 @@ Une présence optimisée sur LinkedIn permet de réduire le cycle de vente de 30
               transition={{ duration: 5, repeat: Infinity }}
               referrerPolicy="no-referrer"
             />
+            <motion.img 
+              src="https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&q=80&w=200"
+              className="absolute -top-40 left-1/4 w-32 h-32 rounded-3xl object-cover shadow-2xl rotate-6 z-0 opacity-40 hidden md:block"
+              animate={{ y: [0, 15, 0], rotate: [6, 8, 6] }}
+              transition={{ duration: 6, repeat: Infinity }}
+              referrerPolicy="no-referrer"
+            />
+            <motion.img 
+              src="https://images.unsplash.com/photo-1611944212129-29977ae1398c?auto=format&fit=crop&q=80&w=200"
+              className="absolute top-1/2 -right-40 -translate-y-1/2 w-36 h-36 rounded-3xl object-cover shadow-2xl -rotate-6 z-0 opacity-40 hidden md:block"
+              animate={{ x: [0, 10, 0], rotate: [-6, -8, -6] }}
+              transition={{ duration: 7, repeat: Infinity }}
+              referrerPolicy="no-referrer"
+            />
+            <motion.img 
+              src="https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&q=80&w=200"
+              className="absolute bottom-1/2 -left-40 translate-y-1/2 w-28 h-28 rounded-3xl object-cover shadow-2xl rotate-12 z-0 opacity-40 hidden md:block"
+              animate={{ x: [0, -10, 0], rotate: [12, 15, 12] }}
+              transition={{ duration: 8, repeat: Infinity }}
+              referrerPolicy="no-referrer"
+            />
 
             {/* Animated Reactions Overlay */}
             <div className="absolute inset-0 pointer-events-none z-20 overflow-visible">
@@ -2413,15 +2537,158 @@ const AiServiceDetail = ({ service }: { service: any }) => {
   );
 };
 
+const africanCountries = [
+  { name: "Afrique du Sud", code: "za" },
+  { name: "Algérie", code: "dz" },
+  { name: "Angola", code: "ao" },
+  { name: "Bénin", code: "bj" },
+  { name: "Cameroun", code: "cm" },
+  { name: "Côte d'Ivoire", code: "ci" },
+  { name: "Égypte", code: "eg" },
+  { name: "Éthiopie", code: "et" },
+  { name: "Ghana", code: "gh" },
+  { name: "Kenya", code: "ke" },
+  { name: "Madagascar", code: "mg" },
+  { name: "Maroc", code: "ma" },
+  { name: "Maurice", code: "mu" },
+  { name: "Nigeria", code: "ng" },
+  { name: "Sénégal", code: "sn" },
+  { name: "Tunisie", code: "tn" }
+];
+
+const AfricanFlagsMarquee = () => {
+  return (
+    <div className="relative py-20 overflow-hidden bg-zinc-900/50 border-y border-white/5">
+      <div className="text-center mb-12">
+        <h3 className="text-3xl font-bold mb-4">Notre Expertise en <span className="text-gradient">Outsourcing Africain</span></h3>
+        <p className="text-zinc-400">Une présence forte sur tout le continent pour un recrutement sans frontières.</p>
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-transparent to-zinc-950 z-10 pointer-events-none" />
+      <motion.div 
+        animate={{ x: [0, -2000] }}
+        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+        className="flex gap-12 items-center whitespace-nowrap"
+      >
+        {[...africanCountries, ...africanCountries].map((country, i) => (
+          <div key={i} className="flex flex-col items-center gap-4 group">
+            <div className="w-32 h-20 rounded-xl overflow-hidden shadow-2xl border border-white/10 group-hover:scale-110 transition-transform duration-500">
+              <img 
+                src={`https://flagcdn.com/w160/${country.code}.png`} 
+                alt={country.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <span className="text-sm font-bold text-zinc-500 group-hover:text-blue-400 transition-colors uppercase tracking-widest">{country.name}</span>
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
+const jobTitles = [
+  "Développeur Web", "Expert IA", "Conseiller Client", "Assistant Administratif",
+  "Comptable", "Conseiller Juridique", "Responsable RH", "Agent SAV",
+  "Community Manager", "Technicien Support", "Télésecrétaire Médical",
+  "Data Scientist", "UX Designer", "Chef de Projet", "Commercial B2B",
+  "Expert Marketing", "Analyste Financier", "Développeur Mobile",
+  "Architecte Cloud", "Spécialiste Cybersécurité"
+];
+
+const JobTitlesMarquee = () => {
+  return (
+    <div className="relative py-10 overflow-hidden bg-blue-500/5 border-y border-white/5 mb-16">
+      <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-transparent to-zinc-950 z-10 pointer-events-none" />
+      <div className="flex whitespace-nowrap">
+        <motion.div 
+          animate={{ x: ["-50%", "0%"] }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          className="flex gap-16 items-center px-8"
+        >
+          {[...jobTitles, ...jobTitles, ...jobTitles, ...jobTitles].map((title, i) => (
+            <span key={i} className="text-2xl md:text-3xl font-black uppercase tracking-tighter opacity-30 hover:opacity-100 hover:text-orange-400 transition-all cursor-default">
+              {title}
+            </span>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
+const TalentSearchSection = () => {
+  const talents = [
+    { role: "Développeur Full-Stack", exp: "5 ans", skills: ["React", "Node.js", "AWS"], lang: "FR/EN" },
+    { role: "Expert Relation Client", exp: "3 ans", skills: ["CRM", "Vente", "Support"], lang: "FR/EN/ES" },
+    { role: "Comptable Senior", exp: "8 ans", skills: ["Audit", "Fiscalité", "SAP"], lang: "FR/EN" },
+    { role: "Community Manager", exp: "4 ans", skills: ["Social Media", "Ads", "Design"], lang: "FR/EN" }
+  ];
+
+  return (
+    <section className="py-24 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Trouvez votre <span className="text-gradient">Prochain Talent.</span></h2>
+          <p className="text-zinc-400 max-w-2xl mx-auto mb-12">
+            Accédez à notre base de données de profils qualifiés et présélectionnés pour accélérer votre croissance.
+          </p>
+        </div>
+
+        <JobTitlesMarquee />
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {talents.map((talent, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ y: -10 }}
+              className="glass p-8 rounded-3xl border border-white/5 hover:border-orange-500/30 transition-all"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center mb-6">
+                <UserCheck className="w-6 h-6 text-orange-400" />
+              </div>
+              <h4 className="text-xl font-bold mb-2">{talent.role}</h4>
+              <div className="text-sm text-zinc-500 mb-4 flex items-center gap-2">
+                <Clock className="w-4 h-4" /> {talent.exp} d'expérience
+              </div>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {talent.skills.map(skill => (
+                  <span key={skill} className="text-[10px] px-2 py-1 rounded-md bg-white/5 text-zinc-400 uppercase font-bold">{skill}</span>
+                ))}
+              </div>
+              <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                <span className="text-xs font-bold text-orange-400">{talent.lang}</span>
+                <Link to="/demarrer-un-projet?service=rh" className="text-xs font-black uppercase tracking-widest hover:text-orange-400 transition-colors">Recruter</Link>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="glass p-8 rounded-[2.5rem] flex flex-col md:flex-row items-center justify-between gap-8 border border-orange-500/20">
+          <div>
+            <h3 className="text-2xl font-bold mb-2">Besoin d'un profil spécifique ?</h3>
+            <p className="text-zinc-400">Dites-nous ce que vous recherchez, nous le trouvons pour vous en moins de 72h.</p>
+          </div>
+          <Link 
+            to="/demarrer-un-projet?service=rh"
+            className="bg-orange-500 text-zinc-950 px-8 py-4 rounded-2xl font-bold hover:bg-orange-400 transition-all whitespace-nowrap"
+          >
+            Lancer une recherche personnalisée
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const RhServiceDetail = ({ service }: { service: any }) => {
   const navigate = useNavigate();
   const features = [
-    { icon: Users2, title: "Sourcing International", desc: "Accès à un vivier de talents qualifiés à travers le monde." },
-    { icon: Globe2, title: "Profils Multilingues", desc: "Recrutement de collaborateurs maîtrisant plusieurs langues." },
-    { icon: UserCheck, title: "Chasse de Tête", desc: "Approche directe des meilleurs profils pour vos postes clés." },
-    { icon: Briefcase, title: "Gestion de Paie", desc: "Externalisation complète de l'administration du personnel." },
-    { icon: ShieldCheck, title: "Conformité RH", desc: "Respect des réglementations locales et internationales." },
-    { icon: Heart, title: "Marque Employeur", desc: "Valorisation de votre image pour attirer les meilleurs." }
+    { icon: Users2, title: "Sourcing International", desc: "Accès à un vivier de talents qualifiés à travers le monde sans distinction d'origine." },
+    { icon: Globe2, title: "Profils Multilingues", desc: "Recrutement de collaborateurs maîtrisant plusieurs langues pour vos marchés globaux." },
+    { icon: UserCheck, title: "Chasse de Tête", desc: "Approche directe des meilleurs profils pour vos postes clés, partout dans le monde." },
+    { icon: Briefcase, title: "Gestion de Paie", desc: "Externalisation complète de l'administration du personnel et conformité locale." },
+    { icon: ShieldCheck, title: "Conformité RH", desc: "Respect des réglementations internationales et éthique de recrutement stricte." },
+    { icon: Heart, title: "Marque Employeur", desc: "Valorisation de votre image pour attirer les talents qui partagent vos valeurs." }
   ];
 
   return (
@@ -2434,27 +2701,44 @@ const RhServiceDetail = ({ service }: { service: any }) => {
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-32">
           <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold uppercase tracking-widest mb-8">
-              Solutions RH & Recrutement
+              Solutions RH & Recrutement Inclusif
             </div>
-            <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight tracking-tighter">
-              Le Talent n'a <br />
-              <span className="text-gradient from-orange-400 to-amber-500">pas de Frontières.</span>
+            <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight tracking-tighter">
+              Recruter est <span className="text-orange-400">notre métier</span>,<br />
+              <span className="text-gradient from-orange-400 to-amber-500">l'optimiser est notre art.</span>
             </h1>
             <p className="text-xl text-zinc-400 leading-relaxed mb-12 max-w-xl">
-              Trouvez les profils d'exception dont votre entreprise a besoin. Nous gérons votre recrutement international de A à Z.
+              Trouvez les profils d'exception dont votre entreprise a besoin. Nous gérons votre recrutement international avec une approche inclusive et performante.
             </p>
             <Link to="/demarrer-un-projet?service=rh" className="bg-orange-500 text-zinc-950 px-10 py-5 rounded-2xl font-bold text-lg hover:bg-orange-400 transition-all shadow-2xl shadow-orange-500/30">
               Recruter maintenant
             </Link>
           </motion.div>
           <div className="relative">
-            <div className="glass rounded-[3rem] p-4 overflow-hidden aspect-square">
-              <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80&w=800" alt="RH" className="w-full h-full object-cover rounded-[2.5rem]" referrerPolicy="no-referrer" />
+            <div className="glass rounded-[3rem] p-4 overflow-hidden aspect-square shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1522071823991-b1ae5e6a3048?auto=format&fit=crop&q=80&w=1200" 
+                alt="Équipe souriante debout" 
+                className="w-full h-full object-cover rounded-[2.5rem]" 
+                referrerPolicy="no-referrer" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-orange-950/40 to-transparent" />
             </div>
+            {/* Floating Badge */}
+            <motion.div 
+              animate={{ y: [0, -15, 0] }}
+              transition={{ duration: 4, repeat: Infinity }}
+              className="absolute -bottom-10 -right-10 glass p-8 rounded-3xl border-orange-500/20 z-20"
+            >
+              <div className="text-orange-400 font-black text-3xl mb-1">100%</div>
+              <div className="text-[10px] uppercase tracking-widest font-bold text-zinc-500">Inclusion & Diversité</div>
+            </motion.div>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
+        <AfricanFlagsMarquee />
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 my-32">
           {features.map((f, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="glass p-8 rounded-[2.5rem] border border-white/5 hover:border-orange-500/30 transition-all group">
               <div className="w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center mb-6 group-hover:bg-orange-500 group-hover:text-zinc-950 transition-all">
@@ -2465,6 +2749,8 @@ const RhServiceDetail = ({ service }: { service: any }) => {
             </motion.div>
           ))}
         </div>
+
+        <TalentSearchSection />
       </div>
     </div>
   );
@@ -2946,7 +3232,90 @@ const HomePage = () => {
   );
 };
 
+const LoadingScreen = ({ onComplete, theme }: { onComplete: () => void, theme: string }) => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(onComplete, 500);
+          return 100;
+        }
+        return prev + Math.floor(Math.random() * 15) + 5;
+      });
+    }, 150);
+
+    return () => clearInterval(interval);
+  }, [onComplete]);
+
+  const isLight = theme === 'light';
+
+  return (
+    <motion.div 
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+      className={`fixed inset-0 z-[1000] flex flex-col items-center justify-center p-6 ${isLight ? 'bg-zinc-50' : 'bg-zinc-950'}`}
+    >
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="mb-12 flex flex-col items-center relative"
+      >
+        {/* Blue Glow behind logo */}
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.6, 0.3]
+          }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -inset-10 bg-blue-500/20 blur-[60px] rounded-full -z-10"
+        />
+
+        {/* Animated Logo */}
+        <motion.img 
+          src="https://www.ted-companygroup.com/assets%20ancien/img/logos/ted-company-with-letter.png" 
+          alt="Ted-Company Group Logo" 
+          className="h-20 md:h-24 w-auto mb-6 drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+          animate={{ 
+            y: [0, -10, 0],
+            filter: ["drop-shadow(0 0 10px rgba(59,130,246,0.2))", "drop-shadow(0 0 25px rgba(59,130,246,0.5))", "drop-shadow(0 0 10px rgba(59,130,246,0.2))"]
+          }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          referrerPolicy="no-referrer"
+        />
+        
+        <div className={`text-2xl md:text-3xl font-bold tracking-tighter flex items-center gap-2 ${isLight ? 'text-zinc-950' : 'text-white'}`}>
+          Ted-Company <span className="text-blue-400 font-light">Group</span>
+        </div>
+      </motion.div>
+
+      <div className="w-full max-w-xs md:max-w-md space-y-4">
+        <div className="flex justify-between items-end mb-2">
+          <span className="text-blue-400 text-xs font-bold uppercase tracking-widest">Loading</span>
+          <span className={`text-2xl font-bold tabular-nums ${isLight ? 'text-zinc-950' : 'text-white'}`}>{Math.min(progress, 100)}%</span>
+        </div>
+        <div className={`h-1.5 w-full rounded-full overflow-hidden border ${isLight ? 'bg-zinc-200 border-zinc-300' : 'bg-white/5 border-white/10'}`}>
+          <motion.div 
+            className="h-full bg-gradient-to-r from-blue-600 to-blue-400"
+            initial={{ width: 0 }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 0.2 }}
+          />
+        </div>
+        <p className="text-zinc-500 text-[10px] uppercase tracking-[0.3em] text-center pt-4 animate-pulse">
+          Innovation • Excellence • Africa
+        </p>
+      </div>
+    </motion.div>
+  );
+};
+
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') || 'dark';
@@ -2968,20 +3337,79 @@ export default function App() {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 
+  // Dynamic SEO Title & Description
+  const SEOUpdater = () => {
+    const location = useLocation();
+    const params = useParams();
+    
+    useEffect(() => {
+      let title = "Ted-Company Group | Solutions d'Externalisation & Recrutement";
+      let description = "Expert en externalisation (BPO), solutions digitales, relation client et recrutement international inclusif.";
+
+      if (location.pathname === '/') {
+        title = "Ted-Company Group | Accueil - Solutions d'Externalisation & Recrutement";
+      } else if (location.pathname.startsWith('/service/')) {
+        const serviceId = location.pathname.split('/').pop();
+        const service = services.find(s => s.id === serviceId);
+        if (service) {
+          title = `${service.title} | Ted-Company Group`;
+          description = service.description;
+        }
+      } else if (location.pathname === '/demarrer-un-projet') {
+        title = "Démarrer un Projet | Ted-Company Group";
+        description = "Lancez votre projet d'externalisation avec Ted-Company Group. Devis gratuit et personnalisé.";
+      }
+
+      document.title = title;
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', description);
+      }
+
+      // Track page view in Google Analytics
+      if (typeof window.gtag === 'function') {
+        window.gtag('config', 'G-6JVBHF375J', {
+          page_path: location.pathname + location.search,
+          page_title: title
+        });
+      }
+    }, [location]);
+
+    return null;
+  };
+
   return (
-    <Router>
-      <div className="min-h-screen transition-colors duration-500">
-        <Navbar theme={theme} toggleTheme={toggleTheme} />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/service/:id" element={<ServiceDetail />} />
-          <Route path="/demarrer-un-projet" element={<StartProject />} />
-          <Route path="/mentions-legales" element={<MentionsLegales />} />
-          <Route path="/confidentialite" element={<Confidentialite />} />
-          <Route path="/cookies" element={<Cookies />} />
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+    <AnimatePresence mode="wait">
+      {isLoading ? (
+        <motion.div key="loader">
+          <LoadingScreen theme={theme} onComplete={() => setIsLoading(false)} />
+        </motion.div>
+      ) : (
+        <motion.div 
+          key="app"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Router>
+            <ScrollToTop />
+            <SEOUpdater />
+            <StructuredData />
+            <div className="min-h-screen transition-colors duration-500">
+              <Navbar theme={theme} toggleTheme={toggleTheme} />
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/service/:id" element={<ServiceDetail />} />
+                <Route path="/demarrer-un-projet" element={<StartProject />} />
+                <Route path="/mentions-legales" element={<MentionsLegales />} />
+                <Route path="/confidentialite" element={<Confidentialite />} />
+                <Route path="/cookies" element={<Cookies />} />
+              </Routes>
+              <Footer />
+            </div>
+          </Router>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
