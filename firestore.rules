@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    // 
+    // Collection: chat_sessions
+    // Fields: id, startTime, lastUpdateTime, userEmail, metadata
+    //
+    // Subcollection: messages
+    // Fields: role, content, timestamp
+    // ===============================================================
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isValidSession(data) {
+      return data.keys().hasAll(['id', 'startTime', 'lastUpdateTime']) &&
+             data.id is string &&
+             data.startTime is string &&
+             data.lastUpdateTime is string &&
+             (!('metadata' in data) || data.metadata is map);
+    }
+
+    function isValidMessage(data) {
+      return data.keys().hasAll(['role', 'content', 'timestamp']) &&
+             data.role in ['user', 'bot'] &&
+             data.content is string &&
+             data.content.size() < 5000 &&
+             data.timestamp is string;
+    }
+
+    match /chat_sessions/{sessionId} {
+      // Allow creation of sessions for any authenticated user (including anonymous)
+      allow create: if isAuthenticated() && isValidSession(request.resource.data);
+      // Allow updating session metadata
+      allow update: if isAuthenticated() && isValidSession(request.resource.data);
+      // Only admins can read all sessions (we'll define admin later if needed, 
+      // for now, let's keep it restricted to the creator if we had a uid field, 
+      // but since it's anonymous and we want the owner to see them in console, 
+      // we don't need public read access).
+      allow read: if false; 
+
+      match /messages/{messageId} {
+        allow create: if isAuthenticated() && isValidMessage(request.resource.data);
+        allow read: if false;
+      }
+    }
+    
+    // Admin access (using the user's email from context)
+    function isAdmin() {
+      return isAuthenticated() && 
+             (request.auth.token.email == "e.rodlish@gmail.com" && request.auth.token.email_verified == true);
+    }
+
+    match /{path=**} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

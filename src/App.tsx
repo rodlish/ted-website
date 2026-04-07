@@ -70,6 +70,7 @@ import {
   Users2,
   Terminal,
   Video,
+  Image,
   Laptop,
   MonitorSmartphone,
   HardDrive,
@@ -77,6 +78,7 @@ import {
 } from 'lucide-react';
 import CountryAutocomplete from './components/CountryAutocomplete';
 import { MentionsLegales, Confidentialite, Cookies } from './components/LegalPages';
+import Chatbot from './components/Chatbot';
 
 declare global {
   interface Window {
@@ -116,7 +118,8 @@ const StructuredData = () => {
     "name": "Ted-Company Group",
     "url": "https://www.ted-companygroup.com/",
     "logo": "https://www.ted-companygroup.com/assets/img/logos/ted-company.png",
-    "description": "Expert en externalisation (BPO), solutions digitales, relation client et recrutement international inclusif en Afrique.",
+    "description": "Expert en externalisation (BPO) à Antananarivo, Madagascar. Services bilingues (FR/EN) : Multimédia, Relation Client, IA et Développement Web. Bilingual Outsourcing & Digital Solutions.",
+    "keywords": "BPO Madagascar, Antananarivo, Antananarive, capital of Madagascar, externalisation, recrutement international, centre d'appel, call center, bilingual services, services bilingues, photo retouching, video editing, IA, AI, web development, secteurs d'activité, business sectors",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Madagascar"
@@ -144,8 +147,8 @@ const services = [
   {
     id: 'web',
     categoryId: 'digital',
-    title: 'Création Site Web',
-    description: 'Des sites web modernes, performants et optimisés pour votre croissance digitale.',
+    title: 'Création Site Web & SEO (FR/EN)',
+    description: 'Développement web sur mesure et SEO. Bilingual web development services (French/English) for global growth.',
     icon: Globe,
     image: 'https://www.ted-companygroup.com/assets/img/service/1.png',
     color: 'from-blue-500 to-cyan-500'
@@ -153,16 +156,16 @@ const services = [
   {
     id: 'ai',
     categoryId: 'digital',
-    title: 'Solution AI',
-    description: 'Toute service dans le domaine que l\'IA peut apporter son aide et dans l\'automatisation.',
+    title: 'IA & Automatisation (AI & Automation)',
+    description: 'Intégration d\'Intelligence Artificielle et automatisation de processus métier. AI integration and business process automation.',
     icon: Cpu,
     color: 'from-blue-600 to-purple-600'
   },
   {
     id: 'call',
     categoryId: 'client',
-    title: 'Centre d\'Appel',
-    description: 'Gestion professionnelle de vos appels entrants et sortants pour une satisfaction client optimale.',
+    title: 'Centre d\'Appel Bilingue (Call Center)',
+    description: 'Gestion professionnelle de vos appels (FR/EN) à Antananarivo, Madagascar. Professional bilingual call center services.',
     icon: PhoneCall,
     image: 'https://www.ted-companygroup.com/assets/img/service/5.png',
     color: 'from-emerald-500 to-teal-500'
@@ -170,8 +173,8 @@ const services = [
   {
     id: 'admin',
     categoryId: 'admin',
-    title: 'Assistance Administratif',
-    description: 'Libérez-vous des tâches chronophages avec notre support administratif dédié.',
+    title: 'Assistance Administrative (Admin Support)',
+    description: 'Support administratif dédié pour optimiser votre temps. Dedicated administrative support to optimize your productivity.',
     icon: FileText,
     image: 'https://www.ted-companygroup.com/assets/img/service/2.png',
     color: 'from-purple-500 to-pink-500'
@@ -179,58 +182,66 @@ const services = [
   {
     id: 'compta',
     categoryId: 'admin',
-    title: 'Comptabilité',
-    description: 'Une gestion comptable rigoureuse et transparente pour la sérénité de votre entreprise.',
+    title: 'Comptabilité (Accounting)',
+    description: 'Gestion comptable rigoureuse et transparente. Rigorous and transparent accounting management for your business.',
     icon: Calculator,
     color: 'from-orange-500 to-red-500'
   },
   {
     id: 'juridique',
     categoryId: 'admin',
-    title: 'Juridique',
-    description: 'Conseils et accompagnement juridique pour sécuriser vos opérations et contrats.',
+    title: 'Juridique (Legal)',
+    description: 'Conseils et accompagnement juridique sécurisé. Secure legal advice and support for your contracts and operations.',
     icon: Scale,
     color: 'from-indigo-500 to-blue-500'
   },
   {
     id: 'rh',
     categoryId: 'admin',
-    title: 'Solution RH',
-    description: 'Nous recherchons des profils spécialisés dans votre secteur d\'activité que vous souhaitez recruter. Nos profils sont variés à l\'international et dans différente langues.',
+    title: 'Solution RH & Recrutement (HR & Recruitment)',
+    description: 'Recrutement international et profils spécialisés. International recruitment and specialized talent sourcing.',
     icon: Users2,
     color: 'from-orange-400 to-amber-600'
   },
   {
     id: 'sav',
     categoryId: 'client',
-    title: 'SAV',
-    description: 'Un service après-vente réactif pour fidéliser vos clients et valoriser votre image.',
+    title: 'SAV & Support Client (Customer Support)',
+    description: 'Service après-vente réactif et multilingue. Responsive and multilingual after-sales customer support.',
     icon: Headphones,
     color: 'from-rose-500 to-orange-500'
   },
   {
     id: 'cm',
     categoryId: 'digital',
-    title: 'Community Manager',
-    description: 'Boostez votre présence sur les réseaux sociaux et engagez votre communauté.',
+    title: 'Community Manager (Social Media)',
+    description: 'Boostez votre présence sur les réseaux sociaux. Boost your social media presence and engage your global community.',
     icon: Users,
     color: 'from-cyan-500 to-emerald-500'
   },
   {
     id: 'support',
     categoryId: 'client',
-    title: 'Support Technique',
-    description: 'Assistance technique à distance et helpdesk pour vos infrastructures et utilisateurs.',
+    title: 'Support Technique (IT Support)',
+    description: 'Assistance technique à distance et helpdesk. Remote technical assistance and helpdesk for global infrastructures.',
     icon: Terminal,
     color: 'from-blue-600 to-indigo-600'
   },
   {
     id: 'medical',
     categoryId: 'client',
-    title: 'Télésecrétaire Médical',
-    description: 'Assistez les docteurs et hôpitaux pour organiser leurs travaux en assurant les tâches faciles mais qui sont stressantes pour eux.',
+    title: 'Télésecrétariat Médical (Medical Secretary)',
+    description: 'Support administratif pour praticiens et hôpitaux. Administrative support for doctors and hospitals.',
     icon: Activity,
     color: 'from-emerald-400 to-cyan-600'
+  },
+  {
+    id: 'multimedia',
+    categoryId: 'digital',
+    title: 'Multimédia & Création de Contenu (Multimedia)',
+    description: 'Retouche photo, montage vidéo et création visuelle. Professional photo retouching, video editing, and visual content creation.',
+    icon: Video,
+    color: 'from-pink-500 to-rose-600'
   }
 ];
 
@@ -818,6 +829,7 @@ const Contact = () => {
   const [selectedService, setSelectedService] = useState(preselectedService || "Autre");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [countryCode, setCountryCode] = useState("");
 
   useEffect(() => {
     if (preselectedService) {
@@ -957,8 +969,29 @@ const Contact = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-zinc-400">Pays</label>
-                    <CountryAutocomplete name="country" required />
+                    <CountryAutocomplete 
+                      name="country" 
+                      required 
+                      onCountryChange={(country) => setCountryCode(country.code)}
+                    />
                   </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-zinc-400">Téléphone</label>
+                    <div className="relative flex items-center">
+                      <div className="absolute left-4 text-zinc-500 font-medium pointer-events-none">
+                        {countryCode}
+                      </div>
+                      <input 
+                        name="phone" 
+                        type="tel" 
+                        required 
+                        className={`w-full bg-white dark:bg-zinc-900 border border-black/10 dark:border-white/10 backdrop-blur-none rounded-xl py-3 focus:outline-none focus:border-blue-500/50 transition-colors text-black dark:text-white ${countryCode ? 'pl-20' : 'px-4'}`}
+                        placeholder="00 00 00 00" 
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-zinc-400">Service</label>
                     <div className="relative">
@@ -2813,6 +2846,63 @@ const MedicalServiceDetail = ({ service }: { service: any }) => {
   );
 };
 
+const MultimediaServiceDetail = ({ service }: { service: any }) => {
+  const navigate = useNavigate();
+  const features = [
+    { icon: Image, title: "Retouche Photo", desc: "Correction colorimétrique, détourage et amélioration de vos visuels." },
+    { icon: Video, title: "Montage Vidéo", desc: "Création de vidéos percutantes pour vos réseaux sociaux et publicités." },
+    { icon: Zap, title: "Amélioration", desc: "Optimisation de la qualité de vos médias existants (upscaling, réduction de bruit)." },
+    { icon: PenTool, title: "Création de Contenu", desc: "Conception graphique et visuelle adaptée à votre identité de marque." },
+    { icon: Share2, title: "Formatage Social", desc: "Adaptation de vos contenus pour tous les réseaux (Reels, TikTok, YouTube)." },
+    { icon: Layout, title: "Design Graphique", desc: "Logos, bannières et supports de communication visuelle." }
+  ];
+
+  return (
+    <div className="pt-32 pb-20 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.button initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} onClick={() => navigate('/#services')} className="flex items-center gap-2 text-zinc-400 hover:text-blue-400 mb-12 transition-colors">
+          <ArrowLeft className="w-5 h-5" /> Retour aux services
+        </motion.button>
+
+        <div className="grid lg:grid-cols-2 gap-16 items-center mb-32">
+          <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-400 text-xs font-bold uppercase tracking-widest mb-8">
+              Solutions Multimédia
+            </div>
+            <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-tight tracking-tighter">
+              Sublimez votre <br />
+              <span className="text-gradient from-pink-400 to-rose-500">Image de Marque.</span>
+            </h1>
+            <p className="text-xl text-zinc-400 leading-relaxed mb-12 max-w-xl">
+              De la retouche photo au montage vidéo professionnel, nous donnons vie à vos idées avec une qualité visuelle exceptionnelle.
+            </p>
+            <Link to="/demarrer-un-projet?service=multimedia" className="bg-pink-500 text-zinc-950 px-10 py-5 rounded-2xl font-bold text-lg hover:bg-pink-400 transition-all shadow-2xl shadow-pink-500/30">
+              Démarrer mon projet
+            </Link>
+          </motion.div>
+          <div className="relative">
+            <div className="glass rounded-[3rem] p-4 overflow-hidden aspect-video">
+              <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&q=80&w=1200" alt="Multimédia" className="w-full h-full object-cover rounded-[2.5rem]" referrerPolicy="no-referrer" />
+            </div>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
+          {features.map((f, i) => (
+            <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="glass p-8 rounded-[2.5rem] border border-white/5 hover:border-pink-500/30 transition-all group">
+              <div className="w-14 h-14 rounded-2xl bg-pink-500/10 flex items-center justify-center mb-6 group-hover:bg-pink-500 group-hover:text-zinc-950 transition-all">
+                <f.icon className="w-7 h-7" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">{f.title}</h3>
+              <p className="text-zinc-400 leading-relaxed">{f.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const StartProject = () => {
   const [searchParams] = useSearchParams();
   const preselectedService = searchParams.get('service');
@@ -2825,6 +2915,7 @@ const StartProject = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [countryCode, setCountryCode] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -2985,8 +3076,31 @@ const StartProject = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-zinc-400">Pays</label>
-                    <CountryAutocomplete name="country" required className="h-full" />
+                    <CountryAutocomplete 
+                      name="country" 
+                      required 
+                      className="h-full" 
+                      onCountryChange={(country) => setCountryCode(country.code)}
+                    />
                   </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-zinc-400">Téléphone</label>
+                    <div className="relative flex items-center">
+                      <div className="absolute left-4 text-zinc-500 font-medium pointer-events-none">
+                        {countryCode}
+                      </div>
+                      <input 
+                        name="phone" 
+                        type="tel" 
+                        required 
+                        className={`w-full glass bg-white/5 border-white/10 rounded-xl py-4 focus:outline-none focus:border-blue-500/50 transition-colors ${countryCode ? 'pl-20' : 'px-4'}`}
+                        placeholder="00 00 00 00" 
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-zinc-400">Nom de l'Entreprise</label>
                     <input name="company" type="text" className="w-full glass bg-white/5 border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-blue-500/50 transition-colors" placeholder="Votre Société" />
@@ -3121,6 +3235,7 @@ const ServiceDetail = () => {
   if (id === 'ai') return <AiServiceDetail service={service} />;
   if (id === 'rh') return <RhServiceDetail service={service} />;
   if (id === 'medical') return <MedicalServiceDetail service={service} />;
+  if (id === 'multimedia') return <MultimediaServiceDetail service={service} />;
 
   return (
     <motion.div 
@@ -3406,6 +3521,7 @@ export default function App() {
                 <Route path="/cookies" element={<Cookies />} />
               </Routes>
               <Footer />
+              <Chatbot />
             </div>
           </Router>
         </motion.div>
