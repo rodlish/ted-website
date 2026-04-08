@@ -60,6 +60,7 @@ function handleFirestoreError(error: unknown, operationType: OperationType, path
 }
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
+const N8N_WEBHOOK_URL = process.env.VITE_N8N_WEBHOOK_URL;
 
 interface Message {
   role: 'user' | 'bot';
@@ -194,18 +195,48 @@ export default function Chatbot() {
         parts: [{ text: m.content }],
       }));
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
-        contents: [
-          ...history.map(h => ({ role: h.role as 'user' | 'model', parts: h.parts })),
-          { role: 'user', parts: [{ text: userMessage }] }
-        ],
-        config: {
-          systemInstruction: SYSTEM_PROMPT,
-        }
-      });
+      let text = '';
 
-      const text = response.text || 'Désolé, je n\'ai pas pu générer de réponse.';
+      if (N8N_WEBHOOK_URL) {
+        // Call n8n Webhook
+        const n8nResponse = await fetch(N8N_WEBHOOK_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: userMessage,
+            sessionId: sessionId,
+            history: history,
+            metadata: {
+              userAgent: navigator.userAgent,
+              language: navigator.language,
+              platform: navigator.platform
+            }
+          }),
+        });
+
+        if (!n8nResponse.ok) {
+          throw new Error(`n8n error: ${n8nResponse.statusText}`);
+        }
+
+        const data = await n8nResponse.json();
+        // n8n usually returns an object, we assume 'output' or 'response' or 'text'
+        text = data.output || data.response || data.text || (Array.isArray(data) ? data[0]?.output : 'Désolé, n8n n\'a pas renvoyé de réponse valide.');
+      } else {
+        // Fallback to direct Gemini if no n8n URL is provided
+        const response = await ai.models.generateContent({
+          model: 'gemini-3-flash-preview',
+          contents: [
+            ...history.map(h => ({ role: h.role as 'user' | 'model', parts: h.parts })),
+            { role: 'user', parts: [{ text: userMessage }] }
+          ],
+          config: {
+            systemInstruction: SYSTEM_PROMPT,
+          }
+        });
+        text = response.text || 'Désolé, je n\'ai pas pu générer de réponse.';
+      }
 
       setMessages(prev => [...prev, { role: 'bot', content: text }]);
 
@@ -282,8 +313,8 @@ export default function Chatbot() {
                     <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center ${msg.role === 'user' ? 'bg-blue-500 text-zinc-950' : 'bg-zinc-800 text-blue-400'}`}>
                       {msg.role === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                     </div>
-                    <div className={`p-3 rounded-2xl text-sm ${msg.role === 'user' ? 'bg-blue-500 text-zinc-950 rounded-tr-none' : 'glass text-zinc-100 rounded-tl-none'}`}>
-                      <div className="prose prose-invert prose-sm max-w-none">
+                    <div className={`p-3 rounded-2xl text-sm ${msg.role === 'user' ? 'bg-blue-500 text-zinc-950 rounded-tr-none' : 'glass text-zinc-100 rounded-tl-none chatbot-bot-message'}`}>
+                      <div className="prose prose-invert prose-sm max-w-none chatbot-prose">
                         <ReactMarkdown>
                           {msg.content}
                         </ReactMarkdown>
@@ -313,7 +344,7 @@ export default function Chatbot() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Posez votre question..."
-                  className="flex-1 bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-blue-500/50 transition-colors text-zinc-100"
+                  className="flex-1 bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-blue-500/50 transition-colors text-zinc-100 chatbot-input"
                 />
                 <button
                   type="submit"
