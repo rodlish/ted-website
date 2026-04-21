@@ -39,8 +39,7 @@ body.light {
 .glass {
   background-color: var(--glass-bg);
   backdrop-filter: blur(16px);
-  border: none;
-  @apply transition-colors duration-500;
+  @apply transition-all duration-500;
 }
 
 /* Override utility classes in light mode */
@@ -66,9 +65,8 @@ body.light {
 .light .text-zinc-950 { color: #09090b; } /* Keep dark text on light backgrounds if needed, but usually this is for buttons */
 .light button.bg-blue-500 .text-zinc-950 { color: #ffffff; } /* White text on blue buttons in light mode */
 
-.light .glass.py-3 {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: none;
+.light .glass {
+  background-color: rgba(255, 255, 255, 0.85);
 }
 
 .light .hero-overlay {

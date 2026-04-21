@@ -79,6 +79,10 @@ import {
 import CountryAutocomplete from './components/CountryAutocomplete';
 import { MentionsLegales, Confidentialite, Cookies } from './components/LegalPages';
 import Chatbot from './components/Chatbot';
+import Blog from './components/Blog';
+import BlogDetail from './components/BlogDetail';
+import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
+import { db } from './firebase';
 
 declare global {
   interface Window {
@@ -118,8 +122,8 @@ const StructuredData = () => {
     "name": "Ted-Company Group",
     "url": "https://www.ted-companygroup.com/",
     "logo": "https://www.ted-companygroup.com/assets/img/logos/ted-company.png",
-    "description": "Expert en externalisation (BPO) à Antananarivo, Madagascar. Services bilingues (FR/EN) : Multimédia, Relation Client, IA et Développement Web. Bilingual Outsourcing & Digital Solutions.",
-    "keywords": "BPO Madagascar, Antananarivo, Antananarive, capital of Madagascar, externalisation, recrutement international, centre d'appel, call center, bilingual services, services bilingues, photo retouching, video editing, IA, AI, web development, secteurs d'activité, business sectors",
+    "description": "Expert en externalisation (BPO) à Antananarivo, Madagascar. Services bilingues : Multimédia, Relation Client, IA et Développement Web. Solutions d'externalisation et digitales.",
+    "keywords": "BPO Madagascar, Antananarivo, Antananarive, capitale de Madagascar, externalisation, recrutement international, centre d'appel, call center, services bilingues, photo retouching, montage vidéo, IA, AI, développement web, secteurs d'activité",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "Madagascar"
@@ -147,8 +151,8 @@ const services = [
   {
     id: 'web',
     categoryId: 'digital',
-    title: 'Création Site Web & SEO (FR/EN)',
-    description: 'Développement web sur mesure et SEO. Bilingual web development services (French/English) for global growth.',
+    title: 'Création Site Web & SEO',
+    description: 'Développement web sur mesure et SEO. Solutions performantes pour votre croissance digitale.',
     icon: Globe,
     image: 'https://www.ted-companygroup.com/assets/img/service/1.png',
     color: 'from-blue-500 to-cyan-500'
@@ -156,16 +160,16 @@ const services = [
   {
     id: 'ai',
     categoryId: 'digital',
-    title: 'IA & Automatisation (AI & Automation)',
-    description: 'Intégration d\'Intelligence Artificielle et automatisation de processus métier. AI integration and business process automation.',
+    title: 'IA & Automatisation',
+    description: 'Intégration d\'Intelligence Artificielle et automatisation de processus métier.',
     icon: Cpu,
     color: 'from-blue-600 to-purple-600'
   },
   {
     id: 'call',
     categoryId: 'client',
-    title: 'Centre d\'Appel Bilingue (Call Center)',
-    description: 'Gestion professionnelle de vos appels (FR/EN) à Antananarivo, Madagascar. Professional bilingual call center services.',
+    title: 'Centre d\'Appel Bilingue',
+    description: 'Gestion professionnelle de vos appels à Antananarivo, Madagascar.',
     icon: PhoneCall,
     image: 'https://www.ted-companygroup.com/assets/img/service/5.png',
     color: 'from-emerald-500 to-teal-500'
@@ -173,8 +177,8 @@ const services = [
   {
     id: 'admin',
     categoryId: 'admin',
-    title: 'Assistance Administrative (Admin Support)',
-    description: 'Support administratif dédié pour optimiser votre temps. Dedicated administrative support to optimize your productivity.',
+    title: 'Assistance Administrative',
+    description: 'Support administratif dédié pour optimiser votre temps.',
     icon: FileText,
     image: 'https://www.ted-companygroup.com/assets/img/service/2.png',
     color: 'from-purple-500 to-pink-500'
@@ -182,64 +186,64 @@ const services = [
   {
     id: 'compta',
     categoryId: 'admin',
-    title: 'Comptabilité (Accounting)',
-    description: 'Gestion comptable rigoureuse et transparente. Rigorous and transparent accounting management for your business.',
+    title: 'Comptabilité',
+    description: 'Gestion comptable rigoureuse et transparente.',
     icon: Calculator,
     color: 'from-orange-500 to-red-500'
   },
   {
     id: 'juridique',
     categoryId: 'admin',
-    title: 'Juridique (Legal)',
-    description: 'Conseils et accompagnement juridique sécurisé. Secure legal advice and support for your contracts and operations.',
+    title: 'Juridique',
+    description: 'Conseils et accompagnement juridique sécurisé.',
     icon: Scale,
     color: 'from-indigo-500 to-blue-500'
   },
   {
     id: 'rh',
     categoryId: 'admin',
-    title: 'Solution RH & Recrutement (HR & Recruitment)',
-    description: 'Recrutement international et profils spécialisés. International recruitment and specialized talent sourcing.',
+    title: 'Solution RH & Recrutement',
+    description: 'Recrutement international et profils spécialisés.',
     icon: Users2,
     color: 'from-orange-400 to-amber-600'
   },
   {
     id: 'sav',
     categoryId: 'client',
-    title: 'SAV & Support Client (Customer Support)',
-    description: 'Service après-vente réactif et multilingue. Responsive and multilingual after-sales customer support.',
+    title: 'SAV & Support Client',
+    description: 'Service après-vente réactif et multilingue.',
     icon: Headphones,
     color: 'from-rose-500 to-orange-500'
   },
   {
     id: 'cm',
     categoryId: 'digital',
-    title: 'Community Manager (Social Media)',
-    description: 'Boostez votre présence sur les réseaux sociaux. Boost your social media presence and engage your global community.',
+    title: 'Community Manager',
+    description: 'Boostez votre présence sur les réseaux sociaux.',
     icon: Users,
     color: 'from-cyan-500 to-emerald-500'
   },
   {
     id: 'support',
     categoryId: 'client',
-    title: 'Support Technique (IT Support)',
-    description: 'Assistance technique à distance et helpdesk. Remote technical assistance and helpdesk for global infrastructures.',
+    title: 'Support Technique',
+    description: 'Assistance technique à distance et helpdesk.',
     icon: Terminal,
     color: 'from-blue-600 to-indigo-600'
   },
   {
     id: 'medical',
     categoryId: 'client',
-    title: 'Télésecrétariat Médical (Medical Secretary)',
-    description: 'Support administratif pour praticiens et hôpitaux. Administrative support for doctors and hospitals.',
+    title: 'Télésecrétariat Médical',
+    description: 'Support administratif pour praticiens et hôpitaux.',
     icon: Activity,
     color: 'from-emerald-400 to-cyan-600'
   },
   {
     id: 'multimedia',
     categoryId: 'digital',
-    title: 'Multimédia & Création de Contenu (Multimedia)',
-    description: 'Retouche photo, montage vidéo et création visuelle. Professional photo retouching, video editing, and visual content creation.',
+    title: 'Multimédia & Création de Contenu',
+    description: 'Retouche photo, montage vidéo et création visuelle.',
     icon: Video,
     color: 'from-pink-500 to-rose-600'
   }
@@ -267,7 +271,7 @@ const Navbar = ({ theme, toggleTheme }: { theme: string, toggleTheme: () => void
     }
   };
 
-  const navItems = ['Services', 'À propos', 'Processus', 'Contact'];
+  const navItems = ['Services', 'À propos', 'Processus', 'Blog', 'Contact'];
 
   return (
     <>
@@ -275,7 +279,7 @@ const Navbar = ({ theme, toggleTheme }: { theme: string, toggleTheme: () => void
         className="fixed top-0 left-0 right-0 h-1 bg-blue-500 z-[60] origin-left"
         style={{ scaleX: scrollYProgress }}
       />
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass py-3 shadow-2xl shadow-blue-500/10' : 'bg-transparent py-6'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass py-4 shadow-xl border-b border-blue-500/20' : 'bg-transparent py-5 border-b border-transparent'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <div onClick={handleLogoClick} className="cursor-pointer">
             <motion.div 
@@ -304,7 +308,15 @@ const Navbar = ({ theme, toggleTheme }: { theme: string, toggleTheme: () => void
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
               >
-                {isHome ? (
+                {item === 'Blog' ? (
+                  <Link 
+                    to="/blog" 
+                    className="hover:text-blue-400 transition-colors relative group"
+                  >
+                    {item}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full" />
+                  </Link>
+                ) : isHome ? (
                   <a 
                     href={`#${item.toLowerCase().replace(' ', '-')}`} 
                     className="hover:text-blue-400 transition-colors relative group"
@@ -374,7 +386,16 @@ const Navbar = ({ theme, toggleTheme }: { theme: string, toggleTheme: () => void
                 <button onClick={() => setIsMobileMenuOpen(false)}><X className="w-8 h-8" /></button>
               </div>
               {navItems.map((item) => (
-                isHome ? (
+                item === 'Blog' ? (
+                  <Link 
+                    key={item} 
+                    to="/blog" 
+                    className="text-4xl font-bold hover:text-blue-400" 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item}
+                  </Link>
+                ) : isHome ? (
                   <a 
                     key={item} 
                     href={`#${item.toLowerCase().replace(' ', '-')}`} 
@@ -508,7 +529,7 @@ const Hero = () => {
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 10, repeat: Infinity }}
                 src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" 
-                alt="Innovation Group" 
+                alt="Groupe Innovation" 
                 className="object-cover w-full h-full opacity-70"
                 referrerPolicy="no-referrer"
               />
@@ -532,7 +553,7 @@ const Hero = () => {
             className="absolute -top-12 -right-12 glass p-6 rounded-3xl z-20 border border-blue-500/30 backdrop-blur-2xl"
           >
             <div className="text-blue-400 font-black text-3xl mb-1">99.9%</div>
-            <div className="text-[10px] uppercase tracking-widest font-bold text-zinc-500">Uptime Service</div>
+            <div className="text-[10px] uppercase tracking-widest font-bold text-zinc-500">Service de Disponibilité</div>
           </motion.div>
         </motion.div>
       </div>
@@ -607,7 +628,7 @@ const About = () => {
             <div className="glass rounded-[3rem] p-4 rotate-2">
               <img 
                 src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800" 
-                alt="About Ted-Company" 
+                alt="À propos de Ted-Company" 
                 className="rounded-[2.5rem] w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
@@ -1162,7 +1183,7 @@ const WebServiceDetail = ({ service }: { service: any }) => {
               >
                 <div className="flex items-center gap-2">
                   <Zap className="w-4 h-4 text-yellow-400" />
-                  <span className="text-xs font-bold">99/100 Speed</span>
+                  <span className="text-xs font-bold">Vitesse 99/100</span>
                 </div>
               </motion.div>
 
@@ -1366,7 +1387,7 @@ const CallServiceDetail = ({ service }: { service: any }) => {
             <div className="absolute -bottom-10 -right-10 glass p-8 rounded-3xl border-emerald-500/20 hidden md:block">
               <div className="flex items-center gap-4 mb-2">
                 <div className="w-3 h-3 rounded-full bg-emerald-500 animate-ping" />
-                <span className="text-sm font-bold uppercase tracking-widest text-emerald-400">Live Performance</span>
+                <span className="text-sm font-bold uppercase tracking-widest text-emerald-400">Performance en Direct</span>
               </div>
               <div className="text-3xl font-black">99.9%</div>
               <div className="text-xs text-zinc-500">Qualité de service</div>
@@ -2119,7 +2140,7 @@ const SavServiceDetail = ({ service }: { service: any }) => {
                     <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
                       <CheckCircle2 className="w-6 h-6 text-purple-400" />
                     </div>
-                    <h4 className="text-xl font-bold">Enquêtes & Feedback</h4>
+                    <h4 className="text-xl font-bold">Enquêtes & Retours</h4>
                     <p className="text-zinc-500 text-sm">Collecte proactive des avis clients pour identifier les axes d'amélioration de vos produits.</p>
                   </div>
                 </div>
@@ -2345,12 +2366,12 @@ Une présence optimisée sur LinkedIn permet de réduire le cycle de vente de 30
               <div className="glass p-4 rounded-2xl flex flex-col items-center gap-2">
                 <ThumbsUp className="text-cyan-400" />
                 <span className="text-xl font-black">+12k</span>
-                <span className="text-[10px] uppercase font-bold text-zinc-500">Likes</span>
+                <span className="text-[10px] uppercase font-bold text-zinc-500">J'aime</span>
               </div>
               <div className="glass p-4 rounded-2xl flex flex-col items-center gap-2">
                 <Share2 className="text-emerald-400" />
                 <span className="text-xl font-black">+4.5k</span>
-                <span className="text-[10px] uppercase font-bold text-zinc-500">Shares</span>
+                <span className="text-[10px] uppercase font-bold text-zinc-500">Partages</span>
               </div>
               <div className="col-span-2 glass p-4 rounded-2xl flex items-center justify-between">
                 <div className="flex -space-x-2">
@@ -3323,6 +3344,119 @@ const ServiceDetail = () => {
   );
 };
 
+const BlogPreview = () => {
+  const navigate = useNavigate();
+  const [recentPosts, setRecentPosts] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchRecent = async () => {
+      try {
+        const q = query(collection(db, 'blog_posts'), where('published', '==', true), orderBy('date', 'desc'), limit(2));
+        const snap = await getDocs(q);
+        if (!snap.empty) {
+          setRecentPosts(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        } else {
+          setRecentPosts([
+            {
+              title: 'L\'Impact de l\'IA sur l\'Externalisation en 2026',
+              slug: 'impact-ia-externalisation-2026',
+              category: 'IA & Innovation',
+              date: new Date().toISOString(),
+              imageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800'
+            },
+            {
+              title: 'Pourquoi Madagascar est le hub BPO de demain',
+              slug: 'madagascar-hub-bpo',
+              category: 'Relation Client',
+              date: new Date(Date.now() - 86400000).toISOString(),
+              imageUrl: 'https://images.unsplash.com/photo-1589156191108-c762ff4b96ab?auto=format&fit=crop&q=80&w=800'
+            }
+          ]);
+        }
+      } catch (e) {
+        setRecentPosts([
+          {
+            title: 'L\'Impact de l\'IA sur l\'Externalisation en 2026',
+            slug: 'impact-ia-externalisation-2026',
+            category: 'IA & Innovation',
+            date: new Date().toISOString(),
+            imageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800'
+          },
+          {
+            title: 'Pourquoi Madagascar est le hub BPO de demain',
+            slug: 'madagascar-hub-bpo',
+            category: 'Relation Client',
+            date: new Date(Date.now() - 86400000).toISOString(),
+            imageUrl: 'https://images.unsplash.com/photo-1589156191108-c762ff4b96ab?auto=format&fit=crop&q=80&w=800'
+          }
+        ]);
+      }
+    };
+    fetchRecent();
+  }, []);
+
+  return (
+    <section id="blog" className="py-24 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+          <div className="text-left">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
+              Actualités
+            </div>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">Notre <span className="text-gradient">Blog.</span></h2>
+          </div>
+          <Link 
+            to="/blog"
+            className="flex items-center gap-2 text-zinc-400 hover:text-blue-400 font-bold uppercase text-xs tracking-widest transition-colors mb-2"
+          >
+            Tout voir <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8">
+          {recentPosts.map((post, i) => (
+            <motion.article
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              whileHover={{ y: -10 }}
+              className="glass rounded-[3rem] overflow-hidden group cursor-pointer border border-white/5 flex flex-col md:flex-row"
+              onClick={() => navigate(`/blog/${post.slug}`)}
+            >
+              <div className="md:w-1/2 aspect-video md:aspect-auto relative overflow-hidden">
+                <img 
+                  src={post.imageUrl} 
+                  alt={post.title} 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute top-4 left-4">
+                  <span className="px-3 py-1 rounded-full bg-blue-500 text-zinc-950 text-[10px] font-black uppercase tracking-wider">
+                    {post.category}
+                  </span>
+                </div>
+              </div>
+              <div className="p-8 md:w-1/2 flex flex-col justify-center">
+                <div className="text-xs text-zinc-500 font-bold uppercase tracking-widest mb-4">
+                  {new Date(post.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </div>
+                <h3 className="text-2xl font-bold mb-6 group-hover:text-blue-400 transition-colors line-clamp-2">
+                  {post.title}
+                </h3>
+                <div className="flex items-center gap-2 text-sm font-black text-blue-400 uppercase tracking-widest group-hover:gap-4 transition-all mt-auto">
+                  Lire <ArrowRight className="w-4 h-4" />
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const HomePage = () => {
   const { hash } = useLocation();
 
@@ -3342,6 +3476,7 @@ const HomePage = () => {
       <About />
       <Services />
       <Process />
+      <BlogPreview />
       <Contact />
     </>
   );
@@ -3410,7 +3545,7 @@ const LoadingScreen = ({ onComplete, theme }: { onComplete: () => void, theme: s
 
       <div className="w-full max-w-xs md:max-w-md space-y-4">
         <div className="flex justify-between items-end mb-2">
-          <span className="text-blue-400 text-xs font-bold uppercase tracking-widest">Loading</span>
+          <span className="text-blue-400 text-xs font-bold uppercase tracking-widest">Chargement</span>
           <span className={`text-2xl font-bold tabular-nums ${isLight ? 'text-zinc-950' : 'text-white'}`}>{Math.min(progress, 100)}%</span>
         </div>
         <div className={`h-1.5 w-full rounded-full overflow-hidden border ${isLight ? 'bg-zinc-200 border-zinc-300' : 'bg-white/5 border-white/10'}`}>
@@ -3470,6 +3605,11 @@ export default function App() {
           title = `${service.title} | Ted-Company Group`;
           description = service.description;
         }
+      } else if (location.pathname.startsWith('/blog/')) {
+        // We'll handle this primarily in the BlogDetail component for precise titles,
+        // but let's set a default here.
+        title = "Blog | Ted-Company Group";
+        description = "Découvrez nos articles sur l'IA, le BPO et les solutions digitales à Madagascar.";
       } else if (location.pathname === '/demarrer-un-projet') {
         title = "Démarrer un Projet | Ted-Company Group";
         description = "Lancez votre projet d'externalisation avec Ted-Company Group. Devis gratuit et personnalisé.";
@@ -3519,6 +3659,8 @@ export default function App() {
                 <Route path="/mentions-legales" element={<MentionsLegales />} />
                 <Route path="/confidentialite" element={<Confidentialite />} />
                 <Route path="/cookies" element={<Cookies />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<BlogDetail />} />
               </Routes>
               <Footer />
               <Chatbot />

@@ -33,6 +33,10 @@ service cloud.firestore {
              data.timestamp is string;
     }
 
+    match /blog_posts/{postId} {
+      allow read: if resource == null || resource.data.published == true;
+    }
+
     match /chat_sessions/{sessionId} {
       // Allow creation of sessions for any authenticated user (including anonymous)
       allow create: if isAuthenticated() && isValidSession(request.resource.data);

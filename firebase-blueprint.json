@@ -23,9 +23,32 @@
         "timestamp": { "type": "string", "format": "date-time", "description": "When the message was sent" }
       },
       "required": ["role", "content", "timestamp"]
+    },
+    "BlogPost": {
+      "title": "Blog Post",
+      "description": "Un article d'actualité ou un guide publié sur le blog de Ted-Company",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Titre de l'article" },
+        "slug": { "type": "string", "description": "URL conviviale de l'article" },
+        "excerpt": { "type": "string", "description": "Résumé court de l'article" },
+        "content": { "type": "string", "description": "Contenu complet en Markdown" },
+        "serviceId": { "type": "string", "description": "ID du service associé (ex: digital, web, ai)" },
+        "category": { "type": "string", "description": "Catégorie de l'article" },
+        "author": { "type": "string", "description": "Nom de l'auteur" },
+        "date": { "type": "string", "format": "date-time", "description": "Date de publication" },
+        "imageUrl": { "type": "string", "description": "URL de l'image de couverture" },
+        "tags": { "type": "array", "items": { "type": "string" }, "description": "Mots-clés associés" },
+        "published": { "type": "boolean", "description": "État de publication" }
+      },
+      "required": ["title", "slug", "content", "date", "published"]
     }
   },
   "firestore": {
+    "/blog_posts/{postId}": {
+      "schema": "BlogPost",
+      "description": "Collection d'articles du blog"
+    },
     "/chat_sessions/{sessionId}": {
       "schema": "ChatSession",
       "description": "Root collection for chat sessions"
