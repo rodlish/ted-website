@@ -15,6 +15,7 @@ import {
 import ReactMarkdown from 'react-markdown';
 import { collection, query, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '../firebase';
+import Breadcrumbs from './Breadcrumbs';
 
 interface BlogPost {
   id: string;
@@ -160,9 +161,42 @@ Vous souhaitez automatiser vos processus ? [Contactez nos experts](/demarrer-un-
     );
   }
 
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": post.imageUrl,
+    "author": {
+      "@type": "Organization",
+      "name": "Ted-Company Group"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Ted-Company Group",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://ted-companygroup.com/image/ted-company-with-letter%20(1).png"
+      }
+    },
+    "datePublished": post.date,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://www.ted-companygroup.com/blog/${post.slug}`
+    }
+  };
+
   return (
     <div className="pt-32 pb-20">
+      <script type="application/ld+json">
+        {JSON.stringify(blogSchema)}
+      </script>
       <div className="max-w-4xl mx-auto px-6">
+        <Breadcrumbs items={[
+          { label: 'Blog', path: '/blog' },
+          { label: post.title }
+        ]} />
+        
         {/* Navigation */}
         <button 
           onClick={() => navigate('/blog')}

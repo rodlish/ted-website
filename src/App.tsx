@@ -105,10 +105,28 @@ const SEOUpdater = () => {
     }
 
     document.title = title;
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', description);
-    }
+    
+    // Update basic meta
+    const updateMeta = (name, content, attr = 'name') => {
+      let element = document.querySelector(`meta[${attr}="${name}"]`);
+      if (!element) {
+        element = document.createElement('meta');
+        element.setAttribute(attr, name);
+        document.head.appendChild(element);
+      }
+      element.setAttribute('content', content);
+    };
+
+    updateMeta('description', description);
+    
+    // Open Graph
+    updateMeta('og:title', title, 'property');
+    updateMeta('og:description', description, 'property');
+    updateMeta('og:url', window.location.href, 'property');
+    
+    // Twitter
+    updateMeta('twitter:title', title, 'name');
+    updateMeta('twitter:description', description, 'name');
 
     if (typeof window.gtag === 'function') {
       window.gtag('config', 'G-6JVBHF375J', {

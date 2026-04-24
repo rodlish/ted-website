@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { ArrowLeft } from 'lucide-react';
 import { services } from '../../data/constants';
+import Breadcrumbs from '../Breadcrumbs';
 
 const WebServiceDetail = lazy(() => import('./WebServiceDetail'));
 const CallServiceDetail = lazy(() => import('./CallServiceDetail'));
@@ -37,6 +38,30 @@ const ServiceDetail = () => {
     </div>
   );
 
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": service.title,
+    "description": service.description,
+    "provider": {
+      "@type": "Organization",
+      "name": "Ted-Company Group",
+      "url": "https://www.ted-companygroup.com"
+    },
+    "areaServed": "Worldwide",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "BPO & Digital Services",
+      "itemListElement": services.map((s) => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": s.title
+        }
+      }))
+    }
+  };
+
   const renderContent = () => {
     switch (id) {
       case 'web': return <WebServiceDetail service={service} />;
@@ -59,6 +84,11 @@ const ServiceDetail = () => {
             className="pt-32 pb-20"
           >
             <div className="max-w-7xl mx-auto px-6">
+              <Breadcrumbs items={[
+                { label: 'Nos Services', path: '/#services' },
+                { label: service.title }
+              ]} />
+              
               <motion.button 
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -143,6 +173,9 @@ const ServiceDetail = () => {
 
   return (
     <Suspense fallback={<div className="min-h-screen bg-zinc-950 flex items-center justify-center"><div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div></div>}>
+      <script type="application/ld+json">
+        {JSON.stringify(serviceSchema)}
+      </script>
       {renderContent()}
     </Suspense>
   );
