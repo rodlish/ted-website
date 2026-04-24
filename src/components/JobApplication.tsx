@@ -10,7 +10,9 @@ import {
   Phone, 
   Briefcase,
   FileText,
-  AlertCircle
+  AlertCircle,
+  ChevronDown,
+  MessageCircle
 } from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import CountryAutocomplete from './CountryAutocomplete';
@@ -135,10 +137,11 @@ const JobApplication = () => {
               {/* Identity Section */}
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-3">
-                  <label className="text-sm font-bold text-zinc-300 uppercase tracking-widest flex items-center gap-2">
+                  <label htmlFor="job-name" className="text-sm font-bold text-zinc-300 uppercase tracking-widest flex items-center gap-2">
                     <User className="w-4 h-4 text-blue-400" /> Prénom & Nom
                   </label>
                   <input 
+                    id="job-name"
                     name="name" 
                     type="text" 
                     required 
@@ -147,10 +150,11 @@ const JobApplication = () => {
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-sm font-bold text-zinc-300 uppercase tracking-widest flex items-center gap-2">
+                  <label htmlFor="job-email" className="text-sm font-bold text-zinc-300 uppercase tracking-widest flex items-center gap-2">
                     <Mail className="w-4 h-4 text-blue-400" /> Email Professionnel
                   </label>
                   <input 
+                    id="job-email"
                     name="email" 
                     type="email" 
                     required 
@@ -162,17 +166,19 @@ const JobApplication = () => {
 
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-3">
-                  <label className="text-sm font-bold text-zinc-300 uppercase tracking-widest flex items-center gap-2">
+                  <label htmlFor="job-phone" className="text-sm font-bold text-zinc-300 uppercase tracking-widest flex items-center gap-2">
                     <Phone className="w-4 h-4 text-blue-400" /> Téléphone
                   </label>
                   <div className="relative">
                     <div className="absolute left-6 top-1/2 -translate-y-1/2 flex items-center gap-2">
                       <CountryAutocomplete 
+                        id="job-country"
                         name="country"
                         onCountryChange={(country) => setCountryCode(country.code)}
                       />
                     </div>
                     <input 
+                      id="job-phone"
                       name="phone" 
                       type="tel" 
                       required 
@@ -182,30 +188,37 @@ const JobApplication = () => {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <label className="text-sm font-bold text-zinc-300 uppercase tracking-widest flex items-center gap-2">
+                  <label htmlFor="job-select" className="text-sm font-bold text-zinc-300 uppercase tracking-widest flex items-center gap-2">
                     <Briefcase className="w-4 h-4 text-blue-400" /> Poste souhaité
                   </label>
-                  <select 
-                    name="job" 
-                    defaultValue={preselectedJob === 'prospecteur' ? "Prospecteur Senior" : "Candidature Spontanée"}
-                    className="w-full glass bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-blue-500/50 transition-all text-white appearance-none"
-                  >
-                    <option className="bg-zinc-900" value="Candidature Spontanée">Candidature Spontanée</option>
-                    <option className="bg-zinc-900" value="Prospecteur Senior">Agent Prospecteur Senior B2B</option>
-                    <option className="bg-zinc-900" value="Support Client">Support Client Bilingue</option>
-                    <option className="bg-zinc-900" value="Développeur Web">Développeur Web / Full-Stack</option>
-                    <option className="bg-zinc-900" value="Expert IA">Expert Intelligence Artificielle</option>
-                  </select>
+                  <div className="relative">
+                    <select 
+                      id="job-select"
+                      name="job" 
+                      defaultValue={preselectedJob === 'prospecteur' ? "Prospecteur Senior" : "Candidature Spontanée"}
+                      className="w-full glass bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-blue-500/50 transition-all text-white appearance-none"
+                    >
+                      <option className="bg-zinc-900" value="Candidature Spontanée">Candidature Spontanée</option>
+                      <option className="bg-zinc-900" value="Prospecteur Senior">Agent Prospecteur Senior B2B</option>
+                      <option className="bg-zinc-900" value="Support Client">Support Client Bilingue</option>
+                      <option className="bg-zinc-900" value="Développeur Web">Développeur Web / Full-Stack</option>
+                      <option className="bg-zinc-900" value="Expert IA">Expert Intelligence Artificielle</option>
+                    </select>
+                    <div className="absolute right-6 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none">
+                      <ChevronDown className="w-4 h-4" />
+                    </div>
+                  </div>
                 </div>
               </div>
 
               {/* CV Upload */}
               <div className="space-y-4">
-                <label className="text-sm font-bold text-zinc-300 uppercase tracking-widest flex items-center gap-2">
+                <label htmlFor="cv-upload" className="text-sm font-bold text-zinc-300 uppercase tracking-widest flex items-center gap-2">
                   <FileText className="w-4 h-4 text-blue-400" /> Votre CV (PDF, DOCX)
                 </label>
                 <div className={`relative border-2 border-dashed rounded-[2rem] p-10 text-center transition-all ${cvFile ? 'border-emerald-500/50 bg-emerald-500/5' : 'border-white/10 hover:border-blue-500/50 bg-white/5 hover:bg-blue-500/5'}`}>
                   <input 
+                    id="cv-upload"
                     type="file" 
                     accept=".pdf,.doc,.docx" 
                     onChange={handleFileChange}
@@ -227,10 +240,11 @@ const JobApplication = () => {
 
               {/* Message Section */}
               <div className="space-y-3">
-                <label className="text-sm font-bold text-zinc-300 uppercase tracking-widest flex items-center gap-2">
+                <label htmlFor="job-message" className="text-sm font-bold text-zinc-300 uppercase tracking-widest flex items-center gap-2">
                   <MessageCircle className="w-4 h-4 text-blue-400" /> Lettre de motivation / Message
                 </label>
                 <textarea 
+                  id="job-message"
                   name="message" 
                   rows={5} 
                   required 
@@ -272,23 +286,5 @@ const JobApplication = () => {
     </div>
   );
 };
-
-// Reusable local component for MessageCircle to avoid import conflicts if any
-const MessageCircle = ({ className }: { className?: string }) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="24" 
-    height="24" 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
-    className={className}
-  >
-    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
-  </svg>
-);
 
 export default JobApplication;

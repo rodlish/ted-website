@@ -151,8 +151,10 @@ const Blog = () => {
               ))}
             </div>
             <div className="relative w-full md:w-80">
+              <label htmlFor="blog-search" className="sr-only">Rechercher un article</label>
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
               <input 
+                id="blog-search"
                 type="text"
                 placeholder="Rechercher un article..."
                 value={searchQuery}

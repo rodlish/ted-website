@@ -286,12 +286,14 @@ export default function Chatbot() {
                 <button 
                   onClick={() => setIsOpen(false)}
                   className="p-1.5 hover:bg-black/10 rounded-lg transition-colors"
+                  aria-label="Réduire le chat"
                 >
                   <Minimize2 className="w-4 h-4" />
                 </button>
                 <button 
                   onClick={() => setIsOpen(false)}
                   className="p-1.5 hover:bg-black/10 rounded-lg transition-colors"
+                  aria-label="Fermer le chat"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -340,7 +342,9 @@ export default function Chatbot() {
                 onSubmit={(e) => { e.preventDefault(); handleSend(); }}
                 className="flex gap-2"
               >
+                <label htmlFor="chat-message-input" className="sr-only">Votre message</label>
                 <input
+                  id="chat-message-input"
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -351,6 +355,7 @@ export default function Chatbot() {
                   type="submit"
                   disabled={!input.trim() || isLoading}
                   className="p-2 bg-blue-500 text-zinc-950 rounded-xl hover:bg-blue-400 transition-all disabled:opacity-50 disabled:hover:scale-100 hover:scale-105 active:scale-95"
+                  aria-label="Envoyer le message"
                 >
                   <Send className="w-5 h-5" />
                 </button>
@@ -366,6 +371,8 @@ export default function Chatbot() {
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
         className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 ${isOpen ? 'bg-zinc-800 text-white rotate-90' : 'bg-blue-500 text-zinc-950'}`}
+        aria-label={isOpen ? "Fermer la fenêtre de chat" : "Ouvrir la fenêtre de chat"}
+        title={isOpen ? "Fermer le chat" : "Ouvrir le chat"}
       >
         {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
         {!isOpen && (

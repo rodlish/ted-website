@@ -202,12 +202,20 @@ Vous souhaitez automatiser vos processus ? [Contactez nos experts](/demarrer-un-
             </div>
 
             <div className="flex items-center gap-3 ml-auto">
-              <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 hover:text-blue-400 transition-colors cursor-pointer">
+              <button 
+                className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 hover:text-blue-400 transition-colors cursor-pointer"
+                aria-label="Partager l'article"
+                title="Partager"
+              >
                 <Share2 className="w-5 h-5" />
-              </div>
-              <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 hover:text-blue-400 transition-colors cursor-pointer">
+              </button>
+              <button 
+                className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 hover:text-blue-400 transition-colors cursor-pointer"
+                aria-label="Enregistrer l'article"
+                title="Enregistrer"
+              >
                 <Bookmark className="w-5 h-5" />
-              </div>
+              </button>
             </div>
           </div>
         </header>
