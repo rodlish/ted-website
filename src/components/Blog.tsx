@@ -61,19 +61,6 @@ const Blog = () => {
         // Fallback to sample data if fetch fails (e.g. collection doesn't exist yet)
         setPosts([
           {
-            id: '1',
-            title: 'L\'Impact de l\'IA sur l\'Externalisation en 2026',
-            slug: 'impact-ia-externalisation-2026',
-            excerpt: 'Découvrez comment l\'intelligence artificielle transforme les processus de BPO et améliore l\'efficacité opérationnelle.',
-            content: '# L\'Impact de l\'IA...',
-            date: new Date().toISOString(),
-            author: 'Ted-Company Team',
-            imageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800',
-            category: 'IA & Innovation',
-            serviceId: 'ai',
-            tags: ['IA', 'BPO', 'Futur']
-          },
-          {
             id: '2',
             title: 'Pourquoi Madagascar est le hub BPO de demain',
             slug: 'madagascar-hub-bpo',

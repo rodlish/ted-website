@@ -81,6 +81,8 @@ import { MentionsLegales, Confidentialite, Cookies } from './components/LegalPag
 import Chatbot from './components/Chatbot';
 import Blog from './components/Blog';
 import BlogDetail from './components/BlogDetail';
+import Careers from './components/Careers';
+import JobApplication from './components/JobApplication';
 import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
 import { db } from './firebase';
 
@@ -163,6 +165,7 @@ const services = [
     title: 'IA & Automatisation',
     description: 'Intégration d\'Intelligence Artificielle et automatisation de processus métier.',
     icon: Cpu,
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800',
     color: 'from-blue-600 to-purple-600'
   },
   {
@@ -1054,30 +1057,159 @@ const Contact = () => {
 };
 
 const Footer = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+
+  const handleFooterLink = (id: string) => {
+    if (isHome) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate(`/#${id}`);
+    }
+  };
+
   return (
-    <footer className="py-12 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-        <div 
-          onClick={() => window.location.href = '/'} 
-          className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
-        >
-          <img 
-            src="https://www.ted-companygroup.com/assets%20ancien/img/logos/ted-company-with-letter.png" 
-            alt="Ted-Company Group Logo" 
-            className="h-10 w-auto"
-            referrerPolicy="no-referrer"
-          />
-          <span className="text-sm md:text-base font-bold tracking-tighter">Ted-Company <span className="text-blue-400 font-light text-xs uppercase">Group</span></span>
+    <footer className="pt-24 pb-12 border-t border-white/5 bg-zinc-950">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+          {/* Brand Column */}
+          <div className="space-y-8">
+            <div 
+              onClick={() => navigate('/')} 
+              className="flex items-center gap-3 cursor-pointer group"
+            >
+              <img 
+                src="https://www.ted-companygroup.com/assets%20ancien/img/logos/ted-company-with-letter.png" 
+                alt="Ted-Company Group Logo" 
+                className="h-12 w-auto transition-transform group-hover:scale-110"
+                referrerPolicy="no-referrer"
+              />
+              <span className="text-xl font-bold tracking-tighter">
+                Ted-Company <span className="text-blue-400 font-light">Group</span>
+              </span>
+            </div>
+            <p className="text-zinc-500 text-sm leading-relaxed max-w-xs">
+              Expert en externalisation et solutions digitales à Madagascar. Nous propulsons votre croissance grâce à l'innovation et l'excellence opérationnelle.
+            </p>
+            <div className="flex gap-4">
+              <a href="https://www.facebook.com/tedcompanygroup/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl glass flex items-center justify-center text-zinc-400 hover:text-blue-400 hover:border-blue-500/30 transition-all">
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a href="https://www.linkedin.com/company/ted-companygroup/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl glass flex items-center justify-center text-zinc-400 hover:text-blue-400 hover:border-blue-500/30 transition-all">
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a href="https://www.instagram.com/tedcompanygroup/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl glass flex items-center justify-center text-zinc-400 hover:text-blue-400 hover:border-blue-500/30 transition-all">
+                <Instagram className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Services Column */}
+          <div>
+            <h4 className="text-zinc-100 font-bold mb-8 flex items-center gap-2">
+              <span className="w-2 h-2 bg-blue-500 rounded-full" />
+              Nos Services
+            </h4>
+            <ul className="space-y-4">
+              {services.slice(0, 6).map((service) => (
+                <li key={service.id}>
+                  <Link to={`/service/${service.id}`} className="text-zinc-500 hover:text-blue-400 text-sm transition-colors flex items-center gap-2 group">
+                    <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all" />
+                    {service.title}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <button onClick={() => handleFooterLink('services')} className="text-blue-400 hover:text-blue-300 text-sm font-bold flex items-center gap-2">
+                  Voir tous les services <ArrowRight className="w-4 h-4" />
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Informations Column */}
+          <div>
+            <h4 className="text-zinc-100 font-bold mb-8 flex items-center gap-2">
+              <span className="w-2 h-2 bg-blue-500 rounded-full" />
+              Informations
+            </h4>
+            <ul className="space-y-4">
+              <li>
+                <button onClick={() => handleFooterLink('à-propos')} className="text-zinc-500 hover:text-blue-400 text-sm transition-colors flex items-center gap-2 group">
+                  <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all" />
+                  À propos
+                </button>
+              </li>
+              <li>
+                <Link to="/#partenaires" className="text-zinc-500 hover:text-blue-400 text-sm transition-colors flex items-center gap-2 group">
+                  <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all" />
+                  Nos Partenaires
+                </Link>
+              </li>
+              <li>
+                <Link to="/#processus" className="text-zinc-500 hover:text-blue-400 text-sm transition-colors flex items-center gap-2 group">
+                  <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all" />
+                  Notre Processus
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="text-zinc-500 hover:text-blue-400 text-sm transition-colors flex items-center gap-2 group font-bold">
+                  <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all" />
+                  Blog & Insights
+                </Link>
+              </li>
+              <li>
+                <Link to="/carrieres" className="text-blue-400 hover:text-blue-300 text-sm font-bold flex items-center gap-2">
+                  Offres d'emploi <ArrowRight className="w-4 h-4" />
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact Column */}
+          <div>
+            <h4 className="text-zinc-100 font-bold mb-8 flex items-center gap-2">
+              <span className="w-2 h-2 bg-blue-500 rounded-full" />
+              Contact
+            </h4>
+            <ul className="space-y-6">
+              <li className="flex gap-4">
+                <div className="w-10 h-10 rounded-xl glass flex items-center justify-center flex-shrink-0 text-blue-400">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs text-zinc-500 font-bold uppercase tracking-widest mb-1">Bureau</div>
+                  <div className="text-sm text-zinc-300">Antananarivo, Madagascar</div>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <div className="w-10 h-10 rounded-xl glass flex items-center justify-center flex-shrink-0 text-blue-400">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs text-zinc-500 font-bold uppercase tracking-widest mb-1">Email</div>
+                  <div className="text-sm text-zinc-300">contact@ted-companygroup.com</div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-        
-        <div className="flex gap-8 text-sm text-zinc-500">
-          <Link to="/mentions-legales" className="hover:text-blue-400 transition-colors">Mentions Légales</Link>
-          <Link to="/confidentialite" className="hover:text-blue-400 transition-colors">Confidentialité</Link>
-          <Link to="/cookies" className="hover:text-blue-400 transition-colors">Cookies</Link>
-        </div>
-        
-        <div className="text-sm text-zinc-500">
-          © {new Date().getFullYear()} Ted-company. Tous droits réservés.
+
+        {/* Bottom bar */}
+        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="text-sm text-zinc-500 font-medium">
+            © {new Date().getFullYear()} Ted-Company Group. Tous droits réservés.
+          </div>
+          
+          <div className="flex flex-wrap justify-center gap-8 text-xs font-bold uppercase tracking-widest text-zinc-500">
+            <Link to="/mentions-legales" className="hover:text-blue-400 transition-colors">Mentions Légales</Link>
+            <Link to="/confidentialite" className="hover:text-blue-400 transition-colors">Confidentialité</Link>
+            <Link to="/cookies" className="hover:text-blue-400 transition-colors">Cookies</Link>
+          </div>
         </div>
       </div>
     </footer>
@@ -1466,7 +1598,7 @@ const CallServiceDetail = ({ service }: { service: any }) => {
             </div>
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1521791136064-7986c2923216?auto=format&fit=crop&q=80&w=1000" 
+                src="https://ted-companygroup.com/image/3.jpg" 
                 className="rounded-3xl shadow-2xl"
                 alt="Collaboration"
                 referrerPolicy="no-referrer"
@@ -2567,10 +2699,83 @@ const AiServiceDetail = ({ service }: { service: any }) => {
               Automatiser mon business
             </Link>
           </motion.div>
-          <div className="relative">
-            <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 blur-[100px] rounded-full" />
-            <div className="glass rounded-[3rem] p-10 relative z-10 aspect-square flex items-center justify-center">
-              <Cpu className="w-32 h-32 text-purple-400 animate-pulse" />
+          <div className="relative h-[800px] flex items-center justify-center overflow-hidden">
+            {/* Background Glow */}
+            <motion.div 
+              animate={{ 
+                scale: [1, 1.2, 1],
+                opacity: [0.2, 0.4, 0.2]
+              }} 
+              transition={{ duration: 10, repeat: Infinity }}
+              className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-[140px] rounded-full" 
+            />
+            
+            {/* Center Robot Image - Foremost depth for the subject */}
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="relative z-10 w-[600px] h-[600px] flex items-center justify-center"
+            >
+              <div className="absolute inset-0 bg-blue-500/5 blur-[80px] rounded-full animate-pulse" />
+              <img 
+                src="https://ted-companygroup.com/image/aited44.png" 
+                alt="Futuristic Robot" 
+                className="w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(59,130,246,0.5)]"
+                referrerPolicy="no-referrer"
+              />
+            </motion.div>
+
+            {/* Floating Icons Layer - Foreground (z-20) */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+              {/* Scattered Icons - Mix of all requested ones */}
+              {[
+                { name: 'n8n', icon: 'https://n8n.io/favicon.ico', x: -160, y: -90, scale: 1 },
+                { name: 'Make', icon: 'https://www.make.com/favicon.ico', x: 150, y: -100, scale: 1 },
+                { name: 'Zapier', icon: 'https://zapier.com/favicon.ico', x: -190, y: 25, scale: 1 },
+                { name: 'WhatsApp', icon: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg', x: 170, y: 75, scale: 0.8 },
+                { name: 'Messenger', icon: 'https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg', x: -125, y: 125, scale: 0.8 },
+                { name: 'Gmail', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg', x: 125, y: -150, scale: 0.8 },
+                { name: 'ChatGPT', icon: 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg', x: -50, y: -175, scale: 1.1 },
+                { name: 'Gemini', icon: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg', x: 60, y: 175, scale: 1.1 },
+                { name: 'Claude', icon: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Anthropic_Claude_logo.svg', x: 210, y: -25, scale: 1 },
+                { name: 'DeepSeek', icon: 'https://ted-companygroup.com/image/deepseek.png', x: -225, y: -50, scale: 1 },
+                { name: 'Ringover', icon: 'https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/9c/6e/8b/9c6e8bc3-3b3b-8b5e-0b0a-7b0a7b0a7b0a/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-10.png/246x0w.webp', x: 200, y: 140, scale: 0.9 },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.name}
+                  initial={{ opacity: 0, x: 0, y: 0 }}
+                  animate={{ 
+                    opacity: 1,
+                    x: item.x,
+                    y: item.y,
+                    translateY: [0, -20, 0],
+                    rotate: [0, i % 2 === 0 ? 5 : -5, 0]
+                  }}
+                  transition={{ 
+                    opacity: { duration: 1, delay: i * 0.1 },
+                    x: { duration: 1, delay: i * 0.1 },
+                    y: { duration: 1, delay: i * 0.1 },
+                    translateY: { duration: 3 + (i % 3), repeat: Infinity, ease: "easeInOut" },
+                    rotate: { duration: 4 + (i % 2), repeat: Infinity, ease: "easeInOut" }
+                  }}
+                  className="absolute p-3 glass rounded-2xl border border-white/10 shadow-xl pointer-events-auto backdrop-blur-md"
+                  style={{ scale: item.scale }}
+                >
+                  <img 
+                    src={item.icon} 
+                    alt={item.name} 
+                    className="w-10 h-10 object-contain"
+                    onError={(e) => {
+                      // Fallback for icons that might fail
+                      const target = e.target as HTMLImageElement;
+                      if (item.name === 'DeepSeek') {
+                        target.src = 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg'; // Temporary fallback to visible AI logo
+                      }
+                    }}
+                  />
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
@@ -2902,9 +3107,86 @@ const MultimediaServiceDetail = ({ service }: { service: any }) => {
             </Link>
           </motion.div>
           <div className="relative">
-            <div className="glass rounded-[3rem] p-4 overflow-hidden aspect-video">
-              <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&q=80&w=1200" alt="Multimédia" className="w-full h-full object-cover rounded-[2.5rem]" referrerPolicy="no-referrer" />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="glass rounded-[3rem] p-4 overflow-hidden aspect-video shadow-2xl relative z-10 border border-white/5"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=1200" 
+                alt="Création Multimédia" 
+                className="w-full h-full object-cover rounded-[2.5rem]" 
+                referrerPolicy="no-referrer" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-pink-950/60 via-transparent to-transparent" />
+              
+              {/* Overlay Text inside Image */}
+              <div className="absolute bottom-10 left-10">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-pink-500/20 backdrop-blur-md flex items-center justify-center border border-pink-500/30">
+                    <Star className="w-5 h-5 text-pink-400" />
+                  </div>
+                  <span className="text-sm font-bold text-white px-3 py-1 rounded-full glass border-white/10 uppercase tracking-widest">Qualité Premium</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Floating Brand Logos */}
+            <div className="absolute -inset-6 md:-inset-12 pointer-events-none z-20">
+              {[
+                { name: "Photoshop", src: "https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" },
+                { name: "Illustrator", src: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" },
+                { name: "After Effects", src: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" },
+                { name: "Premiere", src: "https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" }
+              ].map((logo, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.5, y: 20 }}
+                  animate={{ 
+                    opacity: 1, 
+                    scale: 1,
+                    y: [0, -10, 0],
+                    rotate: [0, 5, -5, 0]
+                  }}
+                  transition={{ 
+                    opacity: { delay: i * 0.15 + 0.5 },
+                    scale: { delay: i * 0.15 + 0.5 },
+                    y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 },
+                    rotate: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }
+                  }}
+                  className={`absolute w-14 h-14 md:w-20 md:h-20 glass p-3 md:p-4 rounded-2xl shadow-2xl border border-white/10 flex items-center justify-center ${
+                    i === 0 ? 'top-0 left-0 md:-left-8' : 
+                    i === 1 ? '-top-6 right-0 md:right-8' : 
+                    i === 2 ? 'bottom-0 left-0 md:left-8' : 
+                    'bottom-0 right-0 md:-right-8'
+                  }`}
+                  style={{
+                    top: i === 0 ? '0%' : i === 1 ? '10%' : 'auto',
+                    bottom: i === 2 ? '0%' : i === 3 ? '10%' : 'auto',
+                    left: i === 0 ? '0%' : i === 2 ? '10%' : 'auto',
+                    right: i === 1 ? '0%' : i === 3 ? '10%' : 'auto',
+                  }}
+                >
+                  <img src={logo.src} alt={logo.name} className="w-full h-full object-contain" />
+                </motion.div>
+              ))}
             </div>
+            
+            {/* Background Decorative Rings */}
+            <motion.div 
+              animate={{ rotate: 360 }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              className="absolute -inset-10 border border-pink-500/10 rounded-full border-dashed -z-10"
+            />
+            <motion.div 
+              animate={{ rotate: -360 }}
+              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+              className="absolute -inset-20 border border-rose-500/5 rounded-full border-dashed -z-10"
+            />
+            
+            {/* Background Glow */}
+            <div className="absolute -inset-20 bg-pink-500/20 blur-[100px] -z-20 rounded-full" />
           </div>
         </div>
 
@@ -3054,7 +3336,7 @@ const StartProject = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="glass rounded-[3rem] p-8 md:p-12 relative"
+            className="bg-zinc-900 dark:bg-zinc-900/50 rounded-[3rem] p-8 md:p-12 relative border border-white/10 shadow-2xl"
           >
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-blue-500/20 blur-[80px] -z-10" />
             
@@ -3085,18 +3367,18 @@ const StartProject = () => {
               >
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-zinc-400">Nom Complet</label>
-                    <input name="name" type="text" required className="w-full glass bg-white/5 border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-blue-500/50 transition-colors" placeholder="Jean Dupont" />
+                    <label className="text-sm font-bold text-zinc-300">Nom Complet</label>
+                    <input name="name" type="text" required className="w-full bg-white border-zinc-200 rounded-xl px-4 py-4 focus:outline-none focus:border-blue-500 transition-colors text-zinc-900 placeholder:text-zinc-400 shadow-inner" placeholder="Jean Dupont" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-zinc-400">Email Professionnel</label>
-                    <input name="email" type="email" required className="w-full glass bg-white/5 border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-blue-500/50 transition-colors" placeholder="jean@entreprise.com" />
+                    <label className="text-sm font-bold text-zinc-300">Email Professionnel</label>
+                    <input name="email" type="email" required className="w-full bg-white border-zinc-200 rounded-xl px-4 py-4 focus:outline-none focus:border-blue-500 transition-colors text-zinc-900 placeholder:text-zinc-400 shadow-inner" placeholder="jean@entreprise.com" />
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-zinc-400">Pays</label>
+                    <label className="text-sm font-bold text-zinc-300">Pays</label>
                     <CountryAutocomplete 
                       name="country" 
                       required 
@@ -3105,16 +3387,16 @@ const StartProject = () => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-zinc-400">Téléphone</label>
+                    <label className="text-sm font-bold text-zinc-300">Téléphone</label>
                     <div className="relative flex items-center">
-                      <div className="absolute left-4 text-zinc-500 font-medium pointer-events-none">
+                      <div className="absolute left-4 text-zinc-400 font-medium pointer-events-none">
                         {countryCode}
                       </div>
                       <input 
                         name="phone" 
                         type="tel" 
                         required 
-                        className={`w-full glass bg-white/5 border-white/10 rounded-xl py-4 focus:outline-none focus:border-blue-500/50 transition-colors ${countryCode ? 'pl-20' : 'px-4'}`}
+                        className={`w-full bg-white border-zinc-200 rounded-xl py-4 focus:outline-none focus:border-blue-500 transition-colors text-zinc-900 shadow-inner ${countryCode ? 'pl-20' : 'px-4'}`}
                         placeholder="00 00 00 00" 
                       />
                     </div>
@@ -3123,40 +3405,40 @@ const StartProject = () => {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-zinc-400">Nom de l'Entreprise</label>
-                    <input name="company" type="text" className="w-full glass bg-white/5 border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-blue-500/50 transition-colors" placeholder="Votre Société" />
+                    <label className="text-sm font-bold text-zinc-300">Nom de l'Entreprise</label>
+                    <input name="company" type="text" className="w-full bg-white border-zinc-200 rounded-xl px-4 py-4 focus:outline-none focus:border-blue-500 transition-colors text-zinc-900 placeholder:text-zinc-400 shadow-inner" placeholder="Votre Société" />
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-zinc-400">Service Souhaité</label>
+                    <label className="text-sm font-bold text-zinc-300">Service Souhaité</label>
                     <select 
                       name="service" 
                       value={selectedService}
                       onChange={(e) => setSelectedService(e.target.value)}
-                      className="w-full glass bg-white/5 border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-blue-500/50 transition-colors appearance-none"
+                      className="w-full bg-white border-zinc-200 rounded-xl px-4 py-4 focus:outline-none focus:border-blue-500 transition-colors appearance-none text-zinc-900 shadow-inner"
                     >
                       {services.map(s => (
-                        <option key={s.id} value={s.title} className="bg-zinc-900">{s.title}</option>
+                        <option key={s.id} value={s.title} className="bg-white text-zinc-900">{s.title}</option>
                       ))}
-                      <option className="bg-zinc-900">Autre</option>
+                      <option className="bg-white text-zinc-900">Autre</option>
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-zinc-400">Budget Estimé</label>
-                    <select name="budget" className="w-full glass bg-white/5 border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-blue-500/50 transition-colors appearance-none">
-                      <option className="bg-zinc-900">Moins de 1 000€</option>
-                      <option className="bg-zinc-900">1 000€ - 5 000€</option>
-                      <option className="bg-zinc-900">5 000€ - 10 000€</option>
-                      <option className="bg-zinc-900">Plus de 10 000€</option>
+                    <label className="text-sm font-bold text-zinc-300">Budget Estimé</label>
+                    <select name="budget" className="w-full bg-white border-zinc-200 rounded-xl px-4 py-4 focus:outline-none focus:border-blue-500 transition-colors appearance-none text-zinc-900 shadow-inner">
+                      <option className="bg-white text-zinc-900">Moins de 1 000€</option>
+                      <option className="bg-white text-zinc-900">1 000€ - 5 000€</option>
+                      <option className="bg-white text-zinc-900">5 000€ - 10 000€</option>
+                      <option className="bg-white text-zinc-900">Plus de 10 000€</option>
                     </select>
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-zinc-400">Détails du Projet</label>
-                  <textarea name="message" rows={5} required className="w-full glass bg-white/5 border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-blue-500/50 transition-colors" placeholder="Parlez-nous de vos objectifs, de vos défis et de ce que vous attendez de nous..." />
+                  <label className="text-sm font-bold text-zinc-300">Détails du Projet</label>
+                  <textarea name="message" rows={5} required className="w-full bg-white border-zinc-200 rounded-xl px-4 py-4 focus:outline-none focus:border-blue-500 transition-colors text-zinc-900 placeholder:text-zinc-400 shadow-inner" placeholder="Parlez-nous de vos objectifs, de vos défis et de ce que vous attendez de nous..." />
                 </div>
 
                 <button 
@@ -3661,6 +3943,8 @@ export default function App() {
                 <Route path="/cookies" element={<Cookies />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/blog/:slug" element={<BlogDetail />} />
+                <Route path="/carrieres" element={<Careers />} />
+                <Route path="/postuler" element={<JobApplication />} />
               </Routes>
               <Footer />
               <Chatbot />
