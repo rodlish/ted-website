@@ -3790,21 +3790,21 @@ const BlogPreview = () => {
             slug: 'transformer-reclamation-opportunite',
             category: 'Relation Client',
             date: new Date(Date.now() - 43200000).toISOString(),
-            imageUrl: '/regenerated_image_1777407484354.png'
+            imageUrl: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800'
           },
           {
             title: 'Pourquoi externaliser votre relation client à Antananarivo ?',
             slug: 'relation-client-antananarivo-bpo',
             category: 'Focus Pays',
             date: new Date(Date.now() - 259200000).toISOString(),
-            imageUrl: '/regenerated_image_1777411300161.png'
+            imageUrl: 'https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&q=80&w=800'
           },
           {
             title: 'L\'impact de l\'externalisation administrative et RH sur la productivité',
             slug: 'externalisation-administrative-rh-productivite',
             category: 'Productivité',
             date: new Date(Date.now() - 518400000).toISOString(),
-            imageUrl: '/regenerated_image_1777411990453.png'
+            imageUrl: 'https://images.unsplash.com/photo-1454165833767-131438956021?auto=format&fit=crop&q=80&w=800'
           },
           {
             title: 'Pourquoi Madagascar est le hub BPO de demain',
