@@ -100,9 +100,9 @@ const BlogDetail = () => {
           const fallbackData: Record<string, BlogPost> = {
             'impact-ia-externalisation-2026': {
               id: '1',
-              title: 'L\'Impact de l\'IA sur l\'Externalisation BPO en 2026',
+              title: 'L\'Impact de l\'IA sur l\'Externalisation en 2026',
               slug: 'impact-ia-externalisation-2026',
-              excerpt: 'Découvrez comment l\'intelligence artificielle transforme les processus de BPO et d\'outsourcing pour améliorer radicalement l\'efficacité opérationnelle.',
+              excerpt: 'Découvrez comment l\'intelligence artificielle transforme les processus de BPO et améliore l\'efficacité opérationnelle.',
               content: `
 # L'Impact de l'IA sur l'Externalisation en 2026
 
@@ -138,9 +138,9 @@ Vous souhaitez automatiser vos processus ? [Contactez nos experts](/demarrer-un-
             },
             'transformer-reclamation-opportunite': {
               id: '4',
-              title: 'Gestion des Réclamations : Transformer les Plaintes en Opportunités BPO',
+              title: 'Comment transformer une réclamation en opportunité commerciale',
               slug: 'transformer-reclamation-opportunite',
-              excerpt: 'Apprenez à gérer les plaintes clients de manière stratégique grâce à l\'externalisation SAV pour renforcer la fidélité et générer des ventes.',
+              excerpt: 'Apprenez à gérer les plaintes clients de manière stratégique pour renforcer la fidélité et générer de nouvelles ventes.',
               content: `
 # Comment transformer une réclamation en opportunité commerciale
 
@@ -169,9 +169,9 @@ Ne craignez plus les réclamations. Relevez le défi et montrez à vos clients q
             },
             'relation-client-antananarivo-bpo': {
               id: '5',
-              title: 'Externalisation Relation Client à Antananarivo : Pourquoi Choisir Madagascar ?',
+              title: 'Pourquoi externaliser votre relation client à Antananarivo ?',
               slug: 'relation-client-antananarivo-bpo',
-              excerpt: 'Découvrez pourquoi la capitale de Madagascar est le hub incontournable de l\'externalisation et de l\'outsourcing de la relation client francophone.',
+              excerpt: 'Découvrez pourquoi la capitale de Madagascar est devenue le hub incontournable de l\'externalisation de la relation client francophone.',
               content: `
 # Pourquoi externaliser votre relation client à Antananarivo ?
 
@@ -200,9 +200,9 @@ Externaliser à Antananarivo avec Ted-Company Group, c'est choisir la performanc
             },
             'externalisation-administrative-rh-productivite': {
               id: '6',
-              title: 'BPO Administratif & RH : Maximisez votre Productivité par l\'Externalisation',
+              title: 'L\'impact de l\'externalisation administrative et RH sur la productivité',
               slug: 'externalisation-administrative-rh-productivite',
-              excerpt: 'Libérez vos équipes des tâches répétitives grâce au BPO RH pour vous concentrer sur votre croissance et optimiser vos coûts d\'outsourcing.',
+              excerpt: 'Libérez vos équipes des tâches répétitives pour vous concentrer sur votre cœur de métier et accélérer votre croissance.',
               content: `
 # L'impact de l'externalisation administrative et RH sur la productivité
 
