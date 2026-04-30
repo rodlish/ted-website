@@ -50,10 +50,23 @@ const Blog = () => {
         );
         
         const querySnapshot = await getDocs(q);
-        const fetchedPosts = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        })) as BlogPost[];
+        const fetchedPosts = querySnapshot.docs.map(doc => {
+          const data = doc.data() as any;
+          // Hardcoded override for specific slug to ensure image update
+          if (data.slug === 'transformer-reclamation-opportunite') {
+            data.imageUrl = '/regenerated_image_1777407484354.png';
+          }
+          if (data.slug === 'relation-client-antananarivo-bpo') {
+            data.imageUrl = '/regenerated_image_1777411300161.png';
+          }
+          if (data.slug === 'externalisation-administrative-rh-productivite') {
+            data.imageUrl = '/regenerated_image_1777411990453.png';
+          }
+          return {
+            id: doc.id,
+            ...data
+          };
+        }) as BlogPost[];
         
         setPosts(fetchedPosts);
       } catch (error) {
@@ -85,6 +98,45 @@ const Blog = () => {
             category: 'Relation Client',
             serviceId: 'sav',
             tags: ['Customer Success', 'SAV', 'Conseils']
+          },
+          {
+            id: '4',
+            title: 'Comment transformer une réclamation en opportunité commerciale',
+            slug: 'transformer-reclamation-opportunite',
+            excerpt: 'Apprenez à gérer les plaintes clients de manière stratégique pour renforcer la fidélité et générer de nouvelles ventes.',
+            content: '...',
+            date: new Date(Date.now() - 43200000).toISOString(),
+            author: 'Expert Relation Client',
+            imageUrl: '/regenerated_image_1777407484354.png',
+            category: 'Relation Client',
+            serviceId: 'sav',
+            tags: ['Relation Client', 'Vente', 'SAV']
+          },
+          {
+            id: '5',
+            title: 'Pourquoi externaliser votre relation client à Antananarivo ?',
+            slug: 'relation-client-antananarivo-bpo',
+            excerpt: 'Découvrez pourquoi la capitale de Madagascar est devenue le hub incontournable de l\'externalisation de la relation client francophone.',
+            content: '...',
+            date: new Date(Date.now() - 259200000).toISOString(),
+            author: 'Ted-Company Madagascar',
+            imageUrl: '/regenerated_image_1777411300161.png',
+            category: 'Focus Pays',
+            serviceId: 'bpo',
+            tags: ['Madagascar', 'BPO', 'Relation Client']
+          },
+          {
+            id: '6',
+            title: 'L\'impact de l\'externalisation administrative et RH sur la productivité',
+            slug: 'externalisation-administrative-rh-productivite',
+            excerpt: 'Libérez vos équipes des tâches répétitives pour vous concentrer sur votre cœur de métier et accélérer votre croissance.',
+            content: '...',
+            date: new Date(Date.now() - 518400000).toISOString(),
+            author: 'Ted-Company Administrative',
+            imageUrl: '/regenerated_image_1777411990453.png',
+            category: 'Productivité',
+            serviceId: 'bpo',
+            tags: ['RH', 'Administration', 'Productivité']
           }
         ]);
       } finally {
@@ -151,10 +203,8 @@ const Blog = () => {
               ))}
             </div>
             <div className="relative w-full md:w-80">
-              <label htmlFor="blog-search" className="sr-only">Rechercher un article</label>
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
               <input 
-                id="blog-search"
                 type="text"
                 placeholder="Rechercher un article..."
                 value={searchQuery}

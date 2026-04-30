@@ -201,7 +201,6 @@ const countries = [
 ];
 
 interface CountryAutocompleteProps {
-  id?: string;
   name: string;
   placeholder?: string;
   required?: boolean;
@@ -211,7 +210,6 @@ interface CountryAutocompleteProps {
 }
 
 const CountryAutocomplete: React.FC<CountryAutocompleteProps> = ({ 
-  id,
   name, 
   placeholder = "Sélectionnez un pays", 
   required = false,
@@ -253,7 +251,6 @@ const CountryAutocomplete: React.FC<CountryAutocompleteProps> = ({
     <div className={`relative ${className}`} ref={containerRef}>
       <div className="relative">
         <input
-          id={id}
           type="text"
           name={name}
           value={query}

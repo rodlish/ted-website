@@ -15,7 +15,6 @@ import {
 import ReactMarkdown from 'react-markdown';
 import { collection, query, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '../firebase';
-import Breadcrumbs from './Breadcrumbs';
 
 interface BlogPost {
   id: string;
@@ -56,6 +55,18 @@ const BlogDetail = () => {
         if (!querySnapshot.empty) {
           const docFetched = querySnapshot.docs[0];
           const postData = { id: docFetched.id, ...docFetched.data() } as BlogPost;
+          
+          // Hardcoded override for specific slug to ensure image update
+          if (postData.slug === 'transformer-reclamation-opportunite') {
+            postData.imageUrl = '/regenerated_image_1777407484354.png';
+          }
+          if (postData.slug === 'relation-client-antananarivo-bpo') {
+            postData.imageUrl = '/regenerated_image_1777411300161.png';
+          }
+          if (postData.slug === 'externalisation-administrative-rh-productivite') {
+            postData.imageUrl = '/regenerated_image_1777411990453.png';
+          }
+          
           setPost(postData);
           
           // SEO Updates
@@ -124,6 +135,99 @@ Vous souhaitez automatiser vos processus ? [Contactez nos experts](/demarrer-un-
               category: 'IA & Innovation',
               serviceId: 'ai',
               tags: ['IA', 'BPO', 'Futur']
+            },
+            'transformer-reclamation-opportunite': {
+              id: '4',
+              title: 'Comment transformer une réclamation en opportunité commerciale',
+              slug: 'transformer-reclamation-opportunite',
+              excerpt: 'Apprenez à gérer les plaintes clients de manière stratégique pour renforcer la fidélité et générer de nouvelles ventes.',
+              content: `
+# Comment transformer une réclamation en opportunité commerciale
+
+Une réclamation client est souvent perçue comme un problème, mais un œil expert y voit une **opportunité en or**. Chez Ted-Company Group, nous formons nos agents à transformer chaque mécontentement en un levier de fidélisation et de croissance.
+
+## 1. L'Écoute Active : Le premier pas vers la résolution
+Lorsqu'un client se plaint, il veut avant tout être entendu. L'écoute empathique désamorce 80% des tensions initiales.
+
+## 2. L'Analyse des besoins sous-jacents
+Derrière une plainte se cache souvent un besoin non satisfait. En identifiant ce besoin, vous pouvez proposer une solution complémentaire (upsell) ou un service mieux adapté.
+
+## 3. Le "Recovery Paradox"
+Saviez-vous qu'un client dont le problème a été résolu efficacement est souvent PLUS fidèle qu'un client qui n'a jamais eu de problème ? C'est ce qu'on appelle le paradoxe de la récupération de service.
+
+---
+
+### Conclusion
+Ne craignez plus les réclamations. Relevez le défi et montrez à vos clients que vous êtes leur meilleur partenaire, même dans les moments difficiles.
+              `,
+              date: new Date().toISOString(),
+              author: 'Expert Relation Client',
+              imageUrl: '/regenerated_image_1777407484354.png',
+              category: 'Relation Client',
+              serviceId: 'sav',
+              tags: ['Relation Client', 'Vente', 'SAV']
+            },
+            'relation-client-antananarivo-bpo': {
+              id: '5',
+              title: 'Pourquoi externaliser votre relation client à Antananarivo ?',
+              slug: 'relation-client-antananarivo-bpo',
+              excerpt: 'Découvrez pourquoi la capitale de Madagascar est devenue le hub incontournable de l\'externalisation de la relation client francophone.',
+              content: `
+# Pourquoi externaliser votre relation client à Antananarivo ?
+
+Antananarivo, la capitale de Madagascar, s'est imposée comme une destination de premier choix pour l'externalisation de la relation client (BPO).
+
+## 1. Un bassin de talents qualifiés
+Les agents à Madagascar sont reconnus pour leur excellent niveau de français et leur culture de service ancrée.
+
+## 2. Un avantage concurrentiel majeur
+L'externalisation à Antananarivo permet une optimisation significative des coûts opérationnels tout en maintenant une qualité de service élevée.
+
+## 3. Une infrastructure technologique de pointe
+Grâce aux câbles sous-marins, Madagascar bénéficie d'une connectivité internet fibre optique ultra-rapide et fiable.
+
+---
+
+### Conclusion
+Externaliser à Antananarivo avec Ted-Company Group, c'est choisir la performance, la qualité et la proximité culturelle.
+              `,
+              date: new Date().toISOString(),
+              author: 'Ted-Company Madagascar',
+              imageUrl: '/regenerated_image_1777411300161.png',
+              category: 'Focus Pays',
+              serviceId: 'bpo',
+              tags: ['Madagascar', 'BPO', 'Relation Client']
+            },
+            'externalisation-administrative-rh-productivite': {
+              id: '6',
+              title: 'L\'impact de l\'externalisation administrative et RH sur la productivité',
+              slug: 'externalisation-administrative-rh-productivite',
+              excerpt: 'Libérez vos équipes des tâches répétitives pour vous concentrer sur votre cœur de métier et accélérer votre croissance.',
+              content: `
+# L'impact de l'externalisation administrative et RH sur la productivité
+
+L'externalisation administrative et RH (BPO) n'est plus une simple option de réduction de coûts, c'est un moteur de performance stratégique.
+
+## 1. Focalisation sur le Cœur de Métier
+En déléguant la gestion de la paie, la saisie de données ou le support RH, vos talents internes se concentrent sur l'innovation et la stratégie.
+
+## 2. Flexibilité et Scalabilité
+L'externalisation permet d'ajuster vos ressources en fonction des pics d'activité sans les contraintes de recrutement direct.
+
+## 3. Expertise et Conformité
+Bénéficiez de processus optimisés et d'experts formés aux dernières réglementations RH et administratives.
+
+---
+
+### Conclusion
+Optimisez votre organisation dès aujourd'hui avec Ted-Company Group.
+              `,
+              date: new Date().toISOString(),
+              author: 'Ted-Company Administrative',
+              imageUrl: '/regenerated_image_1777411990453.png',
+              category: 'Productivité',
+              serviceId: 'bpo',
+              tags: ['RH', 'Administration', 'Productivité']
             }
           };
           
@@ -161,42 +265,9 @@ Vous souhaitez automatiser vos processus ? [Contactez nos experts](/demarrer-un-
     );
   }
 
-  const blogSchema = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": post.title,
-    "description": post.excerpt,
-    "image": post.imageUrl,
-    "author": {
-      "@type": "Organization",
-      "name": "Ted-Company Group"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Ted-Company Group",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://ted-companygroup.com/image/ted-company-with-letter%20(1).png"
-      }
-    },
-    "datePublished": post.date,
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://www.ted-companygroup.com/blog/${post.slug}`
-    }
-  };
-
   return (
     <div className="pt-32 pb-20">
-      <script type="application/ld+json">
-        {JSON.stringify(blogSchema)}
-      </script>
       <div className="max-w-4xl mx-auto px-6">
-        <Breadcrumbs items={[
-          { label: 'Blog', path: '/blog' },
-          { label: post.title }
-        ]} />
-        
         {/* Navigation */}
         <button 
           onClick={() => navigate('/blog')}
@@ -236,20 +307,12 @@ Vous souhaitez automatiser vos processus ? [Contactez nos experts](/demarrer-un-
             </div>
 
             <div className="flex items-center gap-3 ml-auto">
-              <button 
-                className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 hover:text-blue-400 transition-colors cursor-pointer"
-                aria-label="Partager l'article"
-                title="Partager"
-              >
+              <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 hover:text-blue-400 transition-colors cursor-pointer">
                 <Share2 className="w-5 h-5" />
-              </button>
-              <button 
-                className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 hover:text-blue-400 transition-colors cursor-pointer"
-                aria-label="Enregistrer l'article"
-                title="Enregistrer"
-              >
+              </div>
+              <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 hover:text-blue-400 transition-colors cursor-pointer">
                 <Bookmark className="w-5 h-5" />
-              </button>
+              </div>
             </div>
           </div>
         </header>

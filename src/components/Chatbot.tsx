@@ -266,7 +266,7 @@ export default function Chatbot() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="mb-4 w-[350px] md:w-[400px] h-[500px] glass rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-blue-500/20"
+            className="mb-4 w-[320px] md:w-[350px] h-[450px] glass rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-blue-500/20"
           >
             {/* Header */}
             <div className="p-4 bg-blue-500 text-zinc-950 flex justify-between items-center">
@@ -286,14 +286,12 @@ export default function Chatbot() {
                 <button 
                   onClick={() => setIsOpen(false)}
                   className="p-1.5 hover:bg-black/10 rounded-lg transition-colors"
-                  aria-label="Réduire le chat"
                 >
                   <Minimize2 className="w-4 h-4" />
                 </button>
                 <button 
                   onClick={() => setIsOpen(false)}
                   className="p-1.5 hover:bg-black/10 rounded-lg transition-colors"
-                  aria-label="Fermer le chat"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -342,9 +340,7 @@ export default function Chatbot() {
                 onSubmit={(e) => { e.preventDefault(); handleSend(); }}
                 className="flex gap-2"
               >
-                <label htmlFor="chat-message-input" className="sr-only">Votre message</label>
                 <input
-                  id="chat-message-input"
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -355,7 +351,6 @@ export default function Chatbot() {
                   type="submit"
                   disabled={!input.trim() || isLoading}
                   className="p-2 bg-blue-500 text-zinc-950 rounded-xl hover:bg-blue-400 transition-all disabled:opacity-50 disabled:hover:scale-100 hover:scale-105 active:scale-95"
-                  aria-label="Envoyer le message"
                 >
                   <Send className="w-5 h-5" />
                 </button>
@@ -365,23 +360,43 @@ export default function Chatbot() {
         )}
       </AnimatePresence>
 
-      {/* Toggle Button */}
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => setIsOpen(!isOpen)}
-        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 ${isOpen ? 'bg-zinc-800 text-white rotate-90' : 'bg-blue-500 text-zinc-950'}`}
-        aria-label={isOpen ? "Fermer la fenêtre de chat" : "Ouvrir la fenêtre de chat"}
-        title={isOpen ? "Fermer le chat" : "Ouvrir le chat"}
-      >
-        {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
+      {/* Toggle Button Container */}
+      <div className="flex items-center gap-3">
         {!isOpen && (
-          <span className="absolute -top-1 -right-1 flex h-4 w-4">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-4 w-4 bg-blue-600"></span>
-          </span>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="glass px-4 py-2 rounded-xl border border-blue-500/20 shadow-xl hidden md:block"
+          >
+            <span className="text-zinc-100 text-sm font-medium whitespace-nowrap">
+              Assistance en ligne
+            </span>
+          </motion.div>
         )}
-      </motion.button>
+        
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setIsOpen(!isOpen)}
+          className={`w-12 h-12 rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 relative ${isOpen ? 'bg-zinc-800 text-white rotate-90' : 'bg-blue-500 text-zinc-950'}`}
+        >
+          {isOpen ? <X className="w-5 h-5" /> : <MessageCircle className="w-5 h-5" />}
+          {!isOpen && (
+            <>
+              {/* Mobile Tooltip */}
+              <div className="absolute bottom-full right-0 mb-4 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none md:hidden">
+                <div className="glass px-3 py-1.5 rounded-lg border border-blue-500/20 whitespace-nowrap text-xs font-bold text-zinc-100">
+                  Assistance en ligne
+                </div>
+              </div>
+              <span className="absolute -top-1 -right-1 flex h-4 w-4">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-4 w-4 bg-blue-600"></span>
+              </span>
+            </>
+          )}
+        </motion.button>
+      </div>
     </div>
   );
 }
