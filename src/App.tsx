@@ -2442,57 +2442,22 @@ const CmServiceDetail = ({ service }: { service: any }) => {
 
   const articles = [
     { 
-      title: "Comment doubler votre engagement en 30 jours ?", 
-      tag: "Stratégie",
+      title: "Croissance BPO : Comment doubler votre engagement en 30 jours ?", 
+      tag: "Stratégie Digitale",
       image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=1000",
-      content: `L'engagement sur les réseaux sociaux est le moteur de votre croissance digitale. En 2026, l'algorithme ne privilégie plus seulement le nombre de likes, mais la profondeur des interactions. Pour doubler votre engagement en seulement 30 jours, vous devez opérer un virage stratégique majeur : passez d'une logique de diffusion descendante à une logique de conversation horizontale.
-
-Voici les piliers fondamentaux de cette transformation :
-
-1. L'Authenticité Radicale : Les audiences sont lassées des flux parfaits et filtrés. Montrez les coulisses de votre entreprise, partagez vos défis quotidiens et humanisez votre marque. Une vidéo "brute" de 15 secondes a souvent plus d'impact qu'une production studio coûteuse.
-
-2. La Règle des 60 Minutes : L'algorithme analyse la vitesse de réaction. Répondez à chaque commentaire de manière personnalisée dans l'heure qui suit la publication. Cela signale à la plateforme que votre contenu génère une conversation active, ce qui booste instantanément votre portée organique.
-
-3. Maîtrise des Formats Verticaux : Les Reels et TikTok sont les rois de la découverte. Utilisez-les pour attirer de nouveaux abonnés, puis utilisez les Stories pour approfondir la relation. Chaque format a un rôle précis dans votre entonnoir d'engagement.
-
-En appliquant rigoureusement ces méthodes, nos partenaires constatent une augmentation moyenne de 120% de leurs interactions dès le premier mois. C'est un travail de longue haleine qui nécessite une attention constante aux détails et une compréhension fine de votre audience cible.`
+      content: `L'engagement sur les réseaux sociaux est le moteur de votre croissance digitale et de votre stratégie d'externalisation BPO. En 2026, l'algorithme ne privilégie plus seulement le nombre de likes, mais la profondeur des interactions. Pour doubler votre engagement en seulement 30 jours, vous devez opérer un virage stratégique majeur : passez d'une logique de diffusion descendante à une logique de conversation horizontale, pilier central de l'outsourcing moderne.`
     },
     { 
-      title: "Le secret des vidéos virales sur TikTok enfin révélé.", 
-      tag: "Viral",
+      title: "Viralité TikTok : Les secrets d'une visibilité massive en 2026.", 
+      tag: "Viral Marketing",
       image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&q=80&w=1000",
-      content: `La viralité sur TikTok n'est pas un coup de chance aléatoire, c'est le résultat d'une ingénierie psychologique précise. Pour qu'une vidéo devienne virale, elle doit satisfaire deux indicateurs clés : le taux de complétion et le taux de partage.
-
-Le Secret de l'Accroche (The Hook) :
-Les deux premières secondes déterminent le destin de votre vidéo. Vous devez "arrêter le pouce" de l'utilisateur. Utilisez des contrastes visuels forts, des questions provocatrices ou des promesses de valeur immédiate. Si l'utilisateur ne comprend pas l'intérêt de la vidéo en moins de 2 secondes, il passera à la suivante.
-
-La Structure Narrative :
-Une vidéo virale suit souvent une structure en trois actes compressée :
-- L'Accroche : Capte l'attention et pose une problématique.
-- Le Développement : Délivre la promesse ou l'information de manière rythmée.
-- Le Rebond (The Payoff) : La conclusion satisfaisante ou l'appel à l'action.
-
-L'Utilisation Stratégique de l'Audio :
-Ne vous contentez pas d'utiliser une musique tendance. Utilisez-la pour rythmer vos coupures au montage. Le cerveau humain adore la synchronisation entre l'image et le son. Les tendances sonores agissent comme des ancres mémorielles pour votre audience.
-
-Enfin, n'oubliez pas les "boucles de curiosité". Posez une question au début et ne donnez la réponse qu'à la toute fin pour maximiser le temps de visionnage. Plus le temps de visionnage est élevé, plus TikTok poussera votre vidéo vers de nouveaux utilisateurs.`
+      content: `La viralité sur TikTok n'est pas un coup de chance aléatoire, c'est le résultat d'une ingénierie psychologique précise couplée à une expertise en contenu digital. Pour qu'une vidéo devienne virale et booste votre marque, elle doit satisfaire deux indicateurs clés optimisés par nos experts BPO : le taux de complétion et le taux de partage stratégique.`
     },
     { 
-      title: "Pourquoi votre marque doit être sur LinkedIn en 2026.", 
-      tag: "B2B",
+      title: "LinkedIn B2B : Pourquoi l'externalisation de votre influence est cruciale.", 
+      tag: "Influence B2B",
       image: "https://images.unsplash.com/photo-1611944212129-29977ae1398c?auto=format&fit=crop&q=80&w=1000",
-      content: `LinkedIn a achevé sa mutation : ce n'est plus un simple annuaire de CV, c'est devenu le carrefour mondial de l'influence B2B. En 2026, ne pas y être présent de manière active revient à être invisible pour vos partenaires commerciaux et vos futurs talents.
-
-Le Pouvoir du Personal Branding :
-Les entreprises n'achètent plus à d'autres entreprises, les humains achètent à d'autres humains. Le Personal Branding de vos dirigeants et de vos employés est votre actif le plus précieux. Un post publié par un employé a 8 fois plus d'engagement qu'un post publié par la page entreprise. C'est l'ère de l'Employee Advocacy.
-
-Le Thought Leadership :
-Pour dominer LinkedIn, vous devez devenir une source d'autorité. Ne partagez pas seulement vos actualités, partagez votre vision du marché, vos analyses de tendances et vos solutions aux problèmes de votre secteur. C'est ainsi que vous bâtissez une confiance inébranlable avant même le premier contact commercial.
-
-L'Algorithme de Proximité :
-LinkedIn privilégie désormais les relations réelles et les interactions de qualité. Engagez-vous sur les posts de vos prospects, commentez intelligemment et apportez de la valeur sans rien attendre en retour immédiatement. Le "Social Selling" est un marathon, pas un sprint.
-
-Une présence optimisée sur LinkedIn permet de réduire le cycle de vente de 30% et d'augmenter le taux de conversion de vos leads qualifiés de manière spectaculaire. C'est l'outil ultime pour bâtir une réputation solide dans le monde professionnel moderne.`
+      content: `LinkedIn est devenu le carrefour mondial de l'influence B2B et de l'outsourcing de services spécialisés. En 2026, ne pas y être présent de manière active revient à être invisible. L'externalisation de votre communication sur LinkedIn vous permet de bâtir une autorité forte tout en optimisant vos ressources internes via des solutions BPO performantes.`
     }
   ];
 
@@ -3911,6 +3876,17 @@ const LoadingScreen = ({ onComplete, theme }: { onComplete: () => void, theme: s
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    // Pre-cache high-priority images to browser cache for fluid navigation
+    const keyImages = [
+      'https://lh3.googleusercontent.com/d/113v1MJeT6aH2CfhTxhMZl7VpBKSlKpEq',
+      'https://www.ted-companygroup.com/assets%20ancien/img/logos/ted-company-with-letter.png'
+    ];
+
+    keyImages.forEach(src => {
+      const img = new window.Image();
+      img.src = src;
+    });
+
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
@@ -4030,11 +4006,14 @@ export default function App() {
           title = `${service.title} | Ted-Company Group`;
           description = service.description;
         }
+      } else if (location.pathname === '/blog') {
+        title = "Blog BPO & Outsourcing | Ted-Company Group Insights";
+        description = "Découvrez nos expertises sur le BPO, l'externalisation de services, l'IA et les solutions digitales à Madagascar pour optimiser votre rentabilité.";
       } else if (location.pathname.startsWith('/blog/')) {
         // We'll handle this primarily in the BlogDetail component for precise titles,
         // but let's set a default here.
-        title = "Blog | Ted-Company Group";
-        description = "Découvrez nos articles sur l'IA, le BPO et les solutions digitales à Madagascar.";
+        title = "Article Blog | Ted-Company Group";
+        description = "Actualités et conseils sur l'externalisation, le BPO et l'innovation technologique.";
       } else if (location.pathname === '/demarrer-un-projet') {
         title = "Démarrer un Projet | Ted-Company Group";
         description = "Lancez votre projet d'externalisation avec Ted-Company Group. Devis gratuit et personnalisé.";
@@ -4058,6 +4037,25 @@ export default function App() {
     return null;
   };
 
+  // Page Wrapper for smooth transitions
+  const PageTransition = ({ children }: { children: React.ReactNode }) => {
+    const location = useLocation();
+    return (
+      <AnimatePresence mode="wait">
+        <motion.main
+          key={location.pathname}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="flex-grow"
+        >
+          {children}
+        </motion.main>
+      </AnimatePresence>
+    );
+  };
+
   return (
     <AnimatePresence mode="wait">
       {isLoading ? (
@@ -4075,20 +4073,22 @@ export default function App() {
             <ScrollToTop />
             <SEOUpdater />
             <StructuredData />
-            <div className="min-h-screen transition-colors duration-500">
+            <div className="min-h-screen transition-colors duration-500 flex flex-col">
               <Navbar theme={theme} toggleTheme={toggleTheme} />
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/service/:id" element={<ServiceDetail />} />
-                <Route path="/demarrer-un-projet" element={<StartProject />} />
-                <Route path="/mentions-legales" element={<MentionsLegales />} />
-                <Route path="/confidentialite" element={<Confidentialite />} />
-                <Route path="/cookies" element={<Cookies />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:slug" element={<BlogDetail />} />
-                <Route path="/carrieres" element={<Careers />} />
-                <Route path="/postuler" element={<JobApplication />} />
-              </Routes>
+              <PageTransition>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/service/:id" element={<ServiceDetail />} />
+                  <Route path="/demarrer-un-projet" element={<StartProject />} />
+                  <Route path="/mentions-legales" element={<MentionsLegales />} />
+                  <Route path="/confidentialite" element={<Confidentialite />} />
+                  <Route path="/cookies" element={<Cookies />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:slug" element={<BlogDetail />} />
+                  <Route path="/carrieres" element={<Careers />} />
+                  <Route path="/postuler" element={<JobApplication />} />
+                </Routes>
+              </PageTransition>
               <Footer />
               <WhatsAppButton />
               <Chatbot />
