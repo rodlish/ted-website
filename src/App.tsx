@@ -2845,9 +2845,9 @@ const AiServiceDetail = ({ service }: { service: any }) => {
                 { name: 'Gmail', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg', x: 125, y: -150, scale: 0.8 },
                 { name: 'ChatGPT', icon: 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg', x: -50, y: -175, scale: 1.1 },
                 { name: 'Gemini', icon: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg', x: 60, y: 175, scale: 1.1 },
-                { name: 'Claude', icon: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Anthropic_Claude_logo.svg', x: 210, y: -25, scale: 1 },
-                { name: 'DeepSeek', icon: 'https://ted-companygroup.com/image/deepseek.png', x: -225, y: -50, scale: 1 },
-                { name: 'Ringover', icon: 'https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/9c/6e/8b/9c6e8bc3-3b3b-8b5e-0b0a-7b0a7b0a7b0a/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-10.png/246x0w.webp', x: 200, y: 140, scale: 0.9 },
+                { name: 'Claude', icon: '/src/assets/images/regenerated_image_1777578252684.webp', x: 210, y: -25, scale: 1 },
+                { name: 'DeepSeek', icon: 'https://lh3.googleusercontent.com/d/1O8mWqcxXL4qCFVNZ9SOmpK-i5mnG5zbf', x: -225, y: -50, scale: 1 },
+                { name: 'Ringover', icon: '/src/assets/images/regenerated_image_1777577523058.webp', x: 200, y: 140, scale: 0.9 },
               ].map((item, i) => (
                 <motion.div
                   key={item.name}
@@ -3747,13 +3747,13 @@ const BlogPreview = () => {
           const fetched = snap.docs.map(doc => {
             const data = doc.data() as any;
             if (data.slug === 'transformer-reclamation-opportunite') {
-              data.imageUrl = '/regenerated_image_1777407484354.png';
+              data.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777407484354.png';
             }
             if (data.slug === 'relation-client-antananarivo-bpo') {
-              data.imageUrl = '/regenerated_image_1777411300161.png';
+              data.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411300161.png';
             }
             if (data.slug === 'externalisation-administrative-rh-productivite') {
-              data.imageUrl = '/regenerated_image_1777411990453.png';
+              data.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411990453.png';
             }
             return { id: doc.id, ...data };
           });
@@ -3790,21 +3790,21 @@ const BlogPreview = () => {
             slug: 'transformer-reclamation-opportunite',
             category: 'Relation Client',
             date: new Date(Date.now() - 43200000).toISOString(),
-            imageUrl: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800'
+            imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777407484354.png'
           },
           {
             title: 'Pourquoi externaliser votre relation client à Antananarivo ?',
             slug: 'relation-client-antananarivo-bpo',
             category: 'Focus Pays',
             date: new Date(Date.now() - 259200000).toISOString(),
-            imageUrl: 'https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&q=80&w=800'
+            imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411300161.png'
           },
           {
             title: 'L\'impact de l\'externalisation administrative et RH sur la productivité',
             slug: 'externalisation-administrative-rh-productivite',
             category: 'Productivité',
             date: new Date(Date.now() - 518400000).toISOString(),
-            imageUrl: 'https://images.unsplash.com/photo-1454165833767-131438956021?auto=format&fit=crop&q=80&w=800'
+            imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411990453.png'
           },
           {
             title: 'Pourquoi Madagascar est le hub BPO de demain',

@@ -54,13 +54,13 @@ const Blog = () => {
           const data = doc.data() as any;
           // Hardcoded override for specific slug to ensure image update
           if (data.slug === 'transformer-reclamation-opportunite') {
-            data.imageUrl = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800';
+            data.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777407484354.png';
           }
           if (data.slug === 'relation-client-antananarivo-bpo') {
-            data.imageUrl = 'https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&q=80&w=800';
+            data.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411300161.png';
           }
           if (data.slug === 'externalisation-administrative-rh-productivite') {
-            data.imageUrl = 'https://images.unsplash.com/photo-1454165833767-131438956021?auto=format&fit=crop&q=80&w=800';
+            data.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411990453.png';
           }
           return {
             id: doc.id,
@@ -107,7 +107,7 @@ const Blog = () => {
             content: '...',
             date: new Date(Date.now() - 43200000).toISOString(),
             author: 'Expert Relation Client',
-            imageUrl: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800',
+            imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777407484354.png',
             category: 'Relation Client',
             serviceId: 'sav',
             tags: ['Relation Client', 'Vente', 'SAV']
@@ -120,7 +120,7 @@ const Blog = () => {
             content: '...',
             date: new Date(Date.now() - 259200000).toISOString(),
             author: 'Ted-Company Madagascar',
-            imageUrl: 'https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&q=80&w=800',
+            imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411300161.png',
             category: 'Focus Pays',
             serviceId: 'bpo',
             tags: ['Madagascar', 'BPO', 'Relation Client']
@@ -133,7 +133,7 @@ const Blog = () => {
             content: '...',
             date: new Date(Date.now() - 518400000).toISOString(),
             author: 'Ted-Company Administrative',
-            imageUrl: 'https://images.unsplash.com/photo-1454165833767-131438956021?auto=format&fit=crop&q=80&w=800',
+            imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411990453.png',
             category: 'Productivité',
             serviceId: 'bpo',
             tags: ['RH', 'Administration', 'Productivité']

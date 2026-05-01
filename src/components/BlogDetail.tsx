@@ -58,13 +58,13 @@ const BlogDetail = () => {
           
           // Hardcoded override for specific slug to ensure image update
           if (postData.slug === 'transformer-reclamation-opportunite') {
-            postData.imageUrl = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800';
+            postData.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777407484354.png';
           }
           if (postData.slug === 'relation-client-antananarivo-bpo') {
-            postData.imageUrl = 'https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&q=80&w=800';
+            postData.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411300161.png';
           }
           if (postData.slug === 'externalisation-administrative-rh-productivite') {
-            postData.imageUrl = 'https://images.unsplash.com/photo-1454165833767-131438956021?auto=format&fit=crop&q=80&w=800';
+            postData.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411990453.png';
           }
           
           setPost(postData);
@@ -162,7 +162,7 @@ Ne craignez plus les réclamations. Relevez le défi et montrez à vos clients q
               `,
               date: new Date().toISOString(),
               author: 'Expert Relation Client',
-              imageUrl: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1200',
+              imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777407484354.png',
               category: 'Relation Client',
               serviceId: 'sav',
               tags: ['Relation Client', 'Vente', 'SAV']
@@ -193,7 +193,7 @@ Externaliser à Antananarivo avec Ted-Company Group, c'est choisir la performanc
               `,
               date: new Date().toISOString(),
               author: 'Ted-Company Madagascar',
-              imageUrl: 'https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&q=80&w=1200',
+              imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411300161.png',
               category: 'Focus Pays',
               serviceId: 'bpo',
               tags: ['Madagascar', 'BPO', 'Relation Client']
@@ -215,7 +215,7 @@ En déléguant la gestion de la paie, la saisie de données ou le support RH, vo
 L'externalisation permet d'ajuster vos ressources en fonction des pics d'activité sans les contraintes de recrutement direct.
 
 ## 3. Expertise et Conformité
-Bénéficez de processus optimisés et d'experts formés aux dernières réglementations RH et administratives.
+Bénéficiez de processus optimisés et d'experts formés aux dernières réglementations RH et administratives.
 
 ---
 
@@ -224,7 +224,7 @@ Optimisez votre organisation dès aujourd'hui avec Ted-Company Group.
               `,
               date: new Date().toISOString(),
               author: 'Ted-Company Administrative',
-              imageUrl: 'https://images.unsplash.com/photo-1454165833767-131438956021?auto=format&fit=crop&q=80&w=1200',
+              imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411990453.png',
               category: 'Productivité',
               serviceId: 'bpo',
               tags: ['RH', 'Administration', 'Productivité']
