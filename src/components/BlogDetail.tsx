@@ -58,13 +58,13 @@ const BlogDetail = () => {
           
           // Hardcoded override for specific slug to ensure image update
           if (postData.slug === 'transformer-reclamation-opportunite') {
-            postData.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777407484354.png';
+            postData.imageUrl = 'https://ted-companygroup.com/image/reclamation%20compres.png';
           }
           if (postData.slug === 'relation-client-antananarivo-bpo') {
-            postData.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411300161.png';
+            postData.imageUrl = 'https://ted-companygroup.com/image/antananarivo.jpg';
           }
           if (postData.slug === 'externalisation-administrative-rh-productivite') {
-            postData.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411990453.png';
+            postData.imageUrl = 'https://ted-companygroup.com/image/administrateur%20compres.png';
           }
           
           setPost(postData);
@@ -162,7 +162,7 @@ Ne craignez plus les réclamations. Relevez le défi et montrez à vos clients q
               `,
               date: new Date().toISOString(),
               author: 'Expert Relation Client',
-              imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777407484354.png',
+              imageUrl: 'https://ted-companygroup.com/image/reclamation%20compres.png',
               category: 'Relation Client',
               serviceId: 'sav',
               tags: ['Relation Client', 'Vente', 'SAV']
@@ -193,7 +193,7 @@ Externaliser à Antananarivo avec Ted-Company Group, c'est choisir la performanc
               `,
               date: new Date().toISOString(),
               author: 'Ted-Company Madagascar',
-              imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411300161.png',
+              imageUrl: 'https://ted-companygroup.com/image/antananarivo.jpg',
               category: 'Focus Pays',
               serviceId: 'bpo',
               tags: ['Madagascar', 'BPO', 'Relation Client']
@@ -224,7 +224,7 @@ Optimisez votre organisation dès aujourd'hui avec Ted-Company Group.
               `,
               date: new Date().toISOString(),
               author: 'Ted-Company Administrative',
-              imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411990453.png',
+              imageUrl: 'https://ted-companygroup.com/image/administrateur%20compres.png',
               category: 'Productivité',
               serviceId: 'bpo',
               tags: ['RH', 'Administration', 'Productivité']

@@ -3747,13 +3747,13 @@ const BlogPreview = () => {
           const fetched = snap.docs.map(doc => {
             const data = doc.data() as any;
             if (data.slug === 'transformer-reclamation-opportunite') {
-              data.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777407484354.png';
+              data.imageUrl = 'https://ted-companygroup.com/image/reclamation%20compres.png';
             }
             if (data.slug === 'relation-client-antananarivo-bpo') {
-              data.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411300161.png';
+              data.imageUrl = 'https://ted-companygroup.com/image/antananarivo.jpg';
             }
             if (data.slug === 'externalisation-administrative-rh-productivite') {
-              data.imageUrl = 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411990453.png';
+              data.imageUrl = 'https://ted-companygroup.com/image/administrateur%20compres.png';
             }
             return { id: doc.id, ...data };
           });
@@ -3790,21 +3790,21 @@ const BlogPreview = () => {
             slug: 'transformer-reclamation-opportunite',
             category: 'Relation Client',
             date: new Date(Date.now() - 43200000).toISOString(),
-            imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777407484354.png'
+            imageUrl: 'https://ted-companygroup.com/image/reclamation%20compres.png'
           },
           {
             title: 'Pourquoi externaliser votre relation client à Antananarivo ?',
             slug: 'relation-client-antananarivo-bpo',
             category: 'Focus Pays',
             date: new Date(Date.now() - 259200000).toISOString(),
-            imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411300161.png'
+            imageUrl: 'https://ted-companygroup.com/image/antananarivo.jpg'
           },
           {
             title: 'L\'impact de l\'externalisation administrative et RH sur la productivité',
             slug: 'externalisation-administrative-rh-productivite',
             category: 'Productivité',
             date: new Date(Date.now() - 518400000).toISOString(),
-            imageUrl: 'https://ais-dev-ol2zdjp6mo4vr7ddnobmsx-651746489374.europe-west2.run.app/regenerated_image_1777411990453.png'
+            imageUrl: 'https://ted-companygroup.com/image/administrateur%20compres.png'
           },
           {
             title: 'Pourquoi Madagascar est le hub BPO de demain',
