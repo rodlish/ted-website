@@ -886,7 +886,7 @@ const SpecialOffer = () => {
         <div className="col-start-1 row-start-1 sticky top-20 h-[calc(100vh-80px)] w-full overflow-hidden bg-zinc-950">
           <motion.img 
             style={{ y }}
-            src="https://lh3.googleusercontent.com/d/113v1MJeT6aH2CfhTxhMZl7VpBKSlKpEq" 
+            src="https://ted-companygroup.com/image/bien%20final%20%281%29.png" 
             alt="Externalisation de services et BPO Ted-Company Group à 6€ l'heure travaillée" 
             className="w-full h-[150%] object-cover object-top"
             referrerPolicy="no-referrer"
@@ -2845,9 +2845,9 @@ const AiServiceDetail = ({ service }: { service: any }) => {
                 { name: 'Gmail', icon: 'https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg', x: 125, y: -150, scale: 0.8 },
                 { name: 'ChatGPT', icon: 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg', x: -50, y: -175, scale: 1.1 },
                 { name: 'Gemini', icon: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg', x: 60, y: 175, scale: 1.1 },
-                { name: 'Claude', icon: '/src/assets/images/regenerated_image_1777578252684.webp', x: 210, y: -25, scale: 1 },
-                { name: 'DeepSeek', icon: 'https://lh3.googleusercontent.com/d/1O8mWqcxXL4qCFVNZ9SOmpK-i5mnG5zbf', x: -225, y: -50, scale: 1 },
-                { name: 'Ringover', icon: '/src/assets/images/regenerated_image_1777577523058.webp', x: 200, y: 140, scale: 0.9 },
+                { name: 'Claude', icon: 'https://ted-companygroup.com/image/claude.webp', x: 210, y: -25, scale: 1 },
+                { name: 'DeepSeek', icon: 'https://ted-companygroup.com/image/deep.png', x: -225, y: -50, scale: 1 },
+                { name: 'Ringover', icon: 'https://ted-companygroup.com/image/ringover.webp', x: 200, y: 140, scale: 0.9 },
               ].map((item, i) => (
                 <motion.div
                   key={item.name}
@@ -3913,7 +3913,7 @@ const LoadingScreen = ({ onComplete, theme }: { onComplete: () => void, theme: s
   useEffect(() => {
     // Pre-cache high-priority images to browser cache for fluid navigation
     const keyImages = [
-      'https://lh3.googleusercontent.com/d/113v1MJeT6aH2CfhTxhMZl7VpBKSlKpEq',
+      'https://ted-companygroup.com/image/bien%20final%20%281%29.png',
       'https://www.ted-companygroup.com/assets%20ancien/img/logos/ted-company-with-letter.png'
     ];
 
